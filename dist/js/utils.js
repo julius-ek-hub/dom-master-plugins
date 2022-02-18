@@ -1,4 +1,4 @@
-import $ from './lib';
+import $ from 'dom-master';
 
 export const popUpInstances = [];
 
