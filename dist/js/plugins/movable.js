@@ -26,7 +26,7 @@ import { states } from "../utils.js";
 
 const movable = (movableElement, props) => {
     let {movepoint, onMove, onMoving, onMoved } = _object(props);
-    el = $(movableElement);
+    let el = $(movableElement);
 
     let mousedown = false;
     const call = (fn, e) => typeof fn === 'function' && fn(e);

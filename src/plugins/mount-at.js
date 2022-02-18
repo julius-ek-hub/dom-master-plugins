@@ -101,6 +101,7 @@ const mountAt = (element, eventObject, props) => {
     }
     el.appendTo(to);
     if (movable) {
+        console.log(movable)
         let movepoint = el;
         if (isJQL(movable))
             movepoint = movable;

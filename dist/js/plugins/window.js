@@ -76,7 +76,7 @@ const _window = (content = '', props) => {
     let body = __([oa, 'mini-scrollbar text-break']).style({ height: 'calc(100% - 40px)', background: 'white' }).addChild(content);
     typeof content === 'string' && body.addClass('p-2')
     el.addChild([header, body]);
-    mountAt(el, {e, height, width, movable: movable ? header: false });
+    mountAt(el, e, {height, width, movable: movable ? header: false });
 
     const minimize = () => {
         if (!el.attr('expanded') || running === false || !resizable) return;
