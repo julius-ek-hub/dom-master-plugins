@@ -1,5 +1,3 @@
- import domMaster from "./lib";
-
  import modal from './plugins/modal.js';
  import Alert from './plugins/alert.js';
  import accordion from "./plugins/accordion.js";
@@ -21,25 +19,25 @@
  import Calendar from "./plugins/calendar/index.js";
  import pickFile from "./plugins/pick-file.js";
  
- domMaster.modal = modal;
- domMaster.alert = Alert;
- domMaster.confirm = Confirm;
- domMaster.prompt = Prompt;
- domMaster.accordion = accordion;
- domMaster.carousel = carousel;
- domMaster.card = card;
- domMaster.expandable = expandable;
- domMaster.form = form;
- domMaster.collapse = collapse;
- domMaster.animateScroll = animateScroll;
- domMaster.mountAt = mountAt;
- domMaster.movable = movable;
- domMaster.nestedCollapse = nestedCollapse;
- domMaster.offCanvas = offCanvas;
- domMaster.partition = partition;
- domMaster.toast = toast;
- domMaster.window = _window;
- domMaster.Calendar = Calendar;
- domMaster.pickFile = pickFile;
-
-export default domMaster;
+export {
+    modal,
+    Alert,
+    accordion,
+    Confirm,
+    Prompt,
+    carousel,
+    card,
+    expandable,
+    form,
+    collapse,
+    animateScroll,
+    mountAt,
+    movable,
+    nestedCollapse,
+    offCanvas,
+    partition,
+    toast,
+    _window,
+    Calendar,
+    pickFile
+};
