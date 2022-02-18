@@ -89,14 +89,16 @@ export const handleImmidateErrors = function(field){
 };
 
 export const handleErrors = function(){
+    const self = this;
+    console.log(self)
     return new Promise(async(res) => {
-        this.validating = true;
+        self.validating = true;
         let errors = null;
         let results = {};
         let checked = [];
-        this.form.children().get().forEach(async(child, i, array) => {
+        self.form.children().get().forEach(async(child, i, array) => {
             let field = child.find(`#${child.attr('field-id')}`);
-            let sd = this.getSpecificDetails(field);
+            let sd = self.getSpecificDetails(field);
             let error = await checkInput(sd.info, sd.value);
             let _err = field.parent().query('.text-danger').get(0);
             if (error) {

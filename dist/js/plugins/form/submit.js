@@ -33,8 +33,8 @@ export function onOk(cb){
    throw new Error('\'onOk\' must be a function')
 }
 
-export async function submit(){
-    const {validating, disabled, modal, form, ok, submitButton} = this;;
+export const submit = async function (){
+    const {validating, disabled, modal, form, ok, submitButton} = this;
     if(validating || disabled) return;
     loader.call(this).show()
     submitButton.blur();
@@ -43,7 +43,6 @@ export async function submit(){
     loader.call(this).hide();
     if (errors) {
         modal && modal.shake();
-       // form.addClass('was-validated');
         return;
     }
     modal && modal.hide();
