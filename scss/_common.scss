@@ -1,0 +1,40 @@
+@mixin no-scrollbar {
+    &::-webkit-scrollbar{
+        width: 5px;
+        height: 5px;
+        appearance: none;
+        background: transparent;
+    }
+    &::-webkit-scrollbar-track{
+        box-shadow: none
+    }
+    &::-webkit-scrollbar-thumb{
+        background: transparent;
+    }
+}
+
+
+button.accordion-btn-collapsed::after {
+    transform: rotate(0deg) !important;
+} 
+
+// Remove scrollbar but element still scrollable
+
+.no-scrollbar {
+    @include no-scrollbar();
+}
+
+// Minimize scrollbar, only for screen sizes larger than 700px
+
+@media only screen and (min-width: 700px) {
+    .mini-scrollbar {
+        @include no-scrollbar();
+        
+        &::-webkit-scrollbar-thumb{
+            background: #ced4da;
+            &:hover {
+                cursor: all-scroll;
+            }
+        }
+    }
+}

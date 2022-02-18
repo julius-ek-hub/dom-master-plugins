@@ -1,0 +1,71 @@
+$black: #212529;
+$white: #fff;
+$deem-white: #ced4da;
+
+$light: (
+    background: $white,
+    color: $black,
+    buttonColor: $black,
+    buttonBackground: $white,
+    buttonHoverColor: $black,
+    buttonHoverBackground: $black,
+    buttonActiveColor: $white,
+    buttonActiveBackground: $black,
+    border: 1px solid darken($white, 10),
+    boxShadow: '',
+    subBackground: darken($white, 2)
+);
+
+$pure-light: (
+    background: $white,
+    color: $black,
+    buttonColor: $black,
+    buttonBackground: $white,
+    buttonHoverColor: $black,
+    buttonHoverBackground: $black,
+    buttonActiveColor: $white,
+    buttonActiveBackground: $black,
+    border: '',
+    boxShadow: '',
+    subBackground: ''
+);
+
+
+$deem-light: (
+    background: $deem-white,
+    color: $black,
+    buttonColor: $black,
+    buttonBackground: $deem-white,
+    buttonHoverColor: $black,
+    buttonHoverBackground: $black,
+    buttonActiveColor: $deem-white,
+    buttonActiveBackground: $black,
+    border: 1px solid darken($white, 10),
+    subBackground: darken($deem-white, 2)
+);
+
+$dark: (
+    background: $black,
+    color: $deem-white,
+    buttonColor: $deem-white,
+    buttonBackground: $black,
+    buttonHoverColor: $deem-white,
+    buttonHoverBackground: $deem-white,
+    buttonActiveColor: $black,
+    buttonActiveBackground: $deem-white,
+    border: 1px solid darken($white, 80),
+    subBackground: lighten($black, 10)
+);
+
+$pure-dark: (
+    background: $black,
+    color: $deem-white,
+    buttonColor: $deem-white,
+    buttonBackground: $black,
+    buttonHoverColor: $deem-white,
+    buttonHoverBackground: $deem-white,
+    buttonActiveColor: $black,
+    buttonActiveBackground: $deem-white,
+    border: '',
+    subBackground: ''
+);

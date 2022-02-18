@@ -1,0 +1,39 @@
+@import 'variables';
+
+@mixin calendar($name) {
+
+    background: map-get($name, background);
+    color: map-get($name, color);
+
+    button{
+        color: map-get($name, buttonColor);
+        background: map-get($name, buttonBackground);
+
+        &:hover{
+            background: rgba($color: map-get($name, buttonHoverBackground), $alpha: 0.08);
+            color: map-get($name, buttonHoverColor);
+        }
+
+        &.active{
+            background: map-get($name, buttonActiveBackground);
+            color: map-get($name, buttonActiveColor);
+        }
+    }
+    
+
+    .date-picker-result, 
+    .with-pack-button, 
+    .date-picker-footer{
+        background: map-get($name, subBackground);
+    }
+
+    .date-picker-result, 
+    .with-pack-button{
+        border-bottom: map-get($name, border);
+    }
+
+    .date-picker-footer{
+        border-top: map-get($name, border);
+    }
+
+}
