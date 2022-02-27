@@ -1,6 +1,5 @@
 node_modules/
 webpack.config.js
-webpack.config.css.js
 test.js
 test.html
 .vscode
