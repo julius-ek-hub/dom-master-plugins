@@ -1,12 +1,12 @@
 import $, { _boolean, _object, isElement } from '../../lib.js';
 import { sleep, _number } from '../../utils.js';
 import mountAt from '../mount-at.js';
-
+import modal from '../modal.js';
 
 const responsiveMount = async(holder, calendar, okCallback) => {
-    const modal = $.modal(holder, {background: 'transparent'});
-    modal.show();
-    modal.on('hidden', modal.drop).show();
+    const md = modal(holder, {background: 'transparent'});
+    md.show();
+    md.on('hidden', md.drop).show();
     holder.parent().style({padding: '0'});
 
     holder.parent(1).style({
@@ -18,11 +18,11 @@ const responsiveMount = async(holder, calendar, okCallback) => {
         justifyContent: 'center'
     });
 
-    calendar.onOk(okCallback);
+    calendar.ok(okCallback);
 
     calendar.useEffect(()=> {
         return async() => {
-            modal.hide();
+            md.hide();
             await sleep(200)
         }
     })
@@ -43,7 +43,7 @@ const defaultMount = async(e, holder, calendar, props, okCallback) => {
         }
     })
 
-    calendar.onOk(okCallback);
+    calendar.ok(okCallback);
 
     calendar.mountTo(holder);
     mountAt(holder, e, {

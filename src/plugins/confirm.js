@@ -19,7 +19,7 @@ import modal from "./modal.js";
  * @property title, The title of the confirm box
  * @property buttons, All the action buttons and their ids.. optional
  * 
- * @see https://www.247-dev.com/projects/jqlite/docs/confirm
+ * @see https://www.247-dev.com/projects/dom-master/plugins/Confirm
  */
 
 const Confirm = (message, props) => {
@@ -46,6 +46,7 @@ const Confirm = (message, props) => {
         header,
         innerScroll: false,
         footer: buttons,
+        borderLine: 'none',
         backdrop: 'static'
     });
     return new Promise((res, rej) => {

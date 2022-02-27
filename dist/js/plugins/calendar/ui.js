@@ -15,7 +15,7 @@ export default () => {
         return container;
     };
 
-    const calendarContainer = $('</>').addClass([h, w, rel, 'calendar border shadow user-select-none', oh]);
+    const calendarContainer = $('</>').addClass([h, w, rel, 'calendar dom-master-plugin border shadow user-select-none', oh]);
     const datePicker = picker('date-picker', '0', '0');
     const yearPicker = picker('year-picker d-flex flex-column');
     const monthPicker = picker('month-picker d-flex flex-column');

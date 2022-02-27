@@ -2,7 +2,7 @@
   "name": "dom-master-plugins",
   "version": "1.0.5",
   "description": "",
-  "main": "dist/js/index.js",
+  "main": "dist/js/index",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dom-master": "^1.0.7"
+    "dom-master": "^1.0.8"
   },
   "devDependencies": {
     "css-loader": "^6.6.0",

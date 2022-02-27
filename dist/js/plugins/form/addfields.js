@@ -21,7 +21,7 @@ const addFields = function (fields, after){
             type = 'checkbox';
         let id = detail.id;
         let placeholder = _primitive(detail.placeholder);
-        let default_value = _primitive(detail.default_value);
+        let default_value = _primitive(detail.default);
         let label = _primitive(detail.label);
         let description = _primitive(detail.description);
         let required = _boolean(detail.required, false);
@@ -73,7 +73,7 @@ const addFields = function (fields, after){
         if(after){
           let _after = form.find(`#field_${after}`);
 
-          if(_after.plain() && _after.siblings().get(1).plain(0))
+          if(_after.exists() && _after.siblings().get(1).exists())
                form.insertBefore(_container, _after.siblings().get(1))
           else
               form.addChild(_container);
@@ -81,13 +81,12 @@ const addFields = function (fields, after){
         }else{
             form.addChild(_container);
         }
-
         if(type === 'calendar')
             Calendar.listen(_input, null, ({value}) => {
                 _input.value(value);
                 when == 'live' && _input.addClass('valid');
             });
-
+                
         if (when === 'live')
             handleImmidateErrors.call(this, _input)
     });

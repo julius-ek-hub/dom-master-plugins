@@ -31,7 +31,7 @@ import $, { _boolean, _object, Offcanvas} from '../lib.js';
 const offCanvas = (content, props) => {
     let { title, position, backdrop, keyboard, scroll, parent, background, border } = _object(props);
     const pos = { top: 'top', right: 'end', bottom: 'bottom', left: 'start' }
-    const oCanvas = __(`offcanvas jql-offcanvas offcanvas-${pos[position] || 'start'}`);
+    const oCanvas = __(`offcanvas dom-master-plugin offcanvas-${pos[position] || 'start'}`);
     const header = $('</>');
     if (title) {
         header.addChild(title).addClass('offcanvas-header').style({ background });
@@ -53,7 +53,15 @@ const offCanvas = (content, props) => {
         backdrop:  _boolean(backdrop),
         keyboard: _boolean(keyboard),
         scroll: _boolean(scroll, false)
-    })
+    });
+
+    const handleListener = e => {
+        if (!bsOffcanvas._element)
+            return $(window)._on('keyup', handleListener);
+        ['escape', 'enter'].includes(e.code.toLowerCase()) && bsOffcanvas.hide();
+    }
+
+    _boolean(keyboard) && $(window).on('keyup', handleListener);
 
     const on = (event, callback) => {
         const cbs = {
@@ -63,11 +71,30 @@ const offCanvas = (content, props) => {
             shown: 'shown.bs.offcanvas'
         }
         oCanvas.on(cbs[event], callback);
+        
         return {
-            on,
-            hide: () => bsOffcanvas.hide(),
-            show: () => bsOffcanvas.show()
-        };
+            
+            /**
+             * Hides the modal
+             */
+
+            hide(){bsOffcanvas.hide()},
+
+            
+            /**
+             * Shows the modal
+             */
+
+            show(){bsOffcanvas.show()},
+
+            /**
+             * Attach eventListeners to modal
+             * @param {'show' | 'shown' | 'hide' | 'hidden'} event 
+             * @param {Function} callback 
+             */
+
+            on(event, callback){return on(event, callback)}
+        }
     }
 
     const drop = async() => {
@@ -77,19 +104,53 @@ const offCanvas = (content, props) => {
     }
 
     return {
-        on,
+
+        /**
+        * Attach eventListeners to offcanvas
+        * @param {'show' | 'shown' | 'hide' | 'hidden'} event 
+        * @param {Function} callback 
+         */
+
+        on(event, callback){
+            return on(event, callback);
+        },
+
+        /**
+         * Hides the offcanvas
+         */  
+
         hide(){
             bsOffcanvas.hide();
         },
+
+        /**
+         * Shows the offcanvas
+         */
+
         show(){
             bsOffcanvas.show();
         },
+
+        /**
+         * Toggles the offcanvas's visibility
+         */
+
         toggle(){
             bsOffcanvas.toggle();
         },
+
+        /**
+         * Removes offcanvas from the DOM
+         */
+
         drop(){
             drop();
         },
+
+        /**
+         * The Bootstrap 5 offcanvas instance
+         */
+
         i: bsOffcanvas
     }
 }

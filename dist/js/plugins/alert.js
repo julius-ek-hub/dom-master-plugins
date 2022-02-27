@@ -14,7 +14,7 @@ import modal from "./modal.js";
  * @param {String | Element} message an information to the user. Can be a string or Element.
  * @param {String | Element} button  Optional button to override default. Can be text or element.
  * 
- * @see https://www.247-dev.com/projects/dom-master/plugins/alert
+ * @see https://www.247-dev.com/projects/dom-master/plugins/Alert
  */
 
 const Alert  = (message, button) => {

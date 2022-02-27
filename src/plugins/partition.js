@@ -29,7 +29,7 @@ import { __, bs} from "../utils.js";
  * breakFoot: Boolean,
  * touch: Boolean
  * }} props
- * @see https://www.247-dev.com/projects/dom-master/plugins/section
+ * @see https://www.247-dev.com/projects/dom-master/plugins/partition
  */
 
 const partition = (slides, props) => {
@@ -97,7 +97,13 @@ const partition = (slides, props) => {
     ch.get(0).style({ overflowX: 'auto', whiteSpace: bh, textAlign: ah });
     ch.get(1).style({ padding: '0', height: `0` })
     cd.style({ height: '100%', whiteSpace: bf, textAlign: af });
-    return cd;
+    return {
+        ...car,
+        container: cd,
+        appendTo(element){
+            cd.appendTo(element)
+        }
+    };
 }
 
 export default partition;

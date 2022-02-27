@@ -68,7 +68,7 @@ const mountAt = (element, eventObject, props) => {
         top: 'unset'
     });
 
-    to = isJQL(rt) ? rt.plain(0) : isElement(rt) ? rt : null;
+    to = isJQL(rt) ? rt.plain(0) : isElement(rt) ? rt : (typeof rt === 'string' ? $(rt).plain(0) : null);
     to = to && path.includes(to) ? to : null;
 
     if (!to) {

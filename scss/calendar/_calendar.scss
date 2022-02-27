@@ -1,14 +1,16 @@
 @import 'common';
 @import 'utils';
 
-.calendar {
-    @include common();
+@mixin Calendar {
+    &.calendar {
+        @include common();
+        
+        &.light {@include calendar($light)}
+        &.pure-light{@include calendar($pure-light)}
     
-    &.light {@include calendar($light)}
-    &.pure-light{@include calendar($pure-light)}
-
-    &.dark {@include calendar($dark)}
-    &.pure-dark{@include calendar($pure-dark)}
-
-    &.deem-light{@include calendar($deem-light)}
+        &.dark {@include calendar($dark)}
+        &.pure-dark{@include calendar($pure-dark)}
+    
+        &.deem-light{@include calendar($deem-light)}
+    }
 }

@@ -1,0 +1,8 @@
+
+@mixin nestedCollapse {
+    &.nested-collapse {
+        .dropdown-item svg{
+            transition: 0.4s transform;
+        }
+    } 
+}

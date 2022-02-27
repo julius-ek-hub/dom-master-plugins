@@ -9,24 +9,23 @@ import modal from "./modal.js";
  * Creates a custom propmt using Bootstrap 5
  * @param {String} message
  * 
- * @param {Text | {
+ * @param {{
  * type: 'color' | 'date' | 'calendar' | 'datetime-local' | 'email' | 'file' | 'month' | 'number' | 'password' | 'range' | 'tel' | 'text' | 'time' | 'url' | 'week',
- * initial: String,
+ * default: String,
  * okButton: String,
  * cancelButton: String
  * }} props an information to the user about the input.
  * 
- * @param {String} initial, Only considered if typof message is String.
- * 
+ * @returns {Promise<String | String[]>}
  * @property type, The type of input. Should be an HTMlInput type
- * @property okTect, text to display in the Ok button.
- * @property cancelText, text to display in the cancel button.
+ * @property okButton, text or Element to display in the Ok button.
+ * @property cancelButton, text or Element to display in the cancel button.
  * 
- * @see https://www.247-dev.com/projects/jqlite/plugins/prompt
+ * @see https://www.247-dev.com/projects/dom-master/plugins/Prompt
  */
 
 const Prompt = (message, props) => {
-    let {type, okButton: ob, cancelButton: cb, initial: ini } = _object(props);
+    let {type, okButton: ob, cancelButton: cb, default: ini } = _object(props);
     type = ['color', 'date', 'calendar', 'datetime-local', 'email', 'file', 'month', 'number', 'password', 'range', 'tel', 'text', 'time', 'url', 'week'].includes(type) ? type : 'text';
     let inp = __('form-control shadow-none border-none', 'input').attr({ type });
     inp.style({
@@ -66,13 +65,13 @@ const Prompt = (message, props) => {
         });
         cancel.on('click', mod.hide);
         done.on('click', () => {
-            res(type === 'file'? [].slice.call(inp.plain(0).files) : inp.value());
+            res(type === 'file'? inp.files() : inp.value());
             mod.hide();
         })
         if (popUpInstances.length == 0){
             mod.show();
             if(type === 'calendar')
-                Calendar.listen();
+                Calendar.listen(inp, null, ({target, value}) => target.value = value);
         }
         popUpInstances.push(mod);
     })

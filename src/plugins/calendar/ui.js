@@ -15,7 +15,7 @@ export default () => {
         return container;
     };
 
-    const calendarContainer = $('</>').addClass([h, w, rel, 'calendar border shadow user-select-none', oh]);
+    const calendarContainer = $('</>').addClass([h, w, rel, 'calendar dom-master-plugin border shadow user-select-none', oh]);
     const datePicker = picker('date-picker', '0', '0');
     const yearPicker = picker('year-picker d-flex flex-column');
     const monthPicker = picker('month-picker d-flex flex-column');
@@ -23,7 +23,7 @@ export default () => {
     const navButton = rotate => $('<button class = "btn btn-sm shadow-none"/>').addChild(Chevron(rotate, '25'));
 
     const withBackToDatePicker = (title, from) =>  {
-        const container = $('</>').addClass([df, aic, 'p-2 with-pack-button']);
+        const container = $('</>').addClass([df, aic, 'p-2 with-back-button']);
         const btn = navButton('180deg').addClass('rounded-circle p-2');
         const _title = $('<span class="ms-2"/>').addChild(title);
         container.addChild([btn, _title]);

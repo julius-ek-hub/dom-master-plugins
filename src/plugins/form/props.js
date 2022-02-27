@@ -5,18 +5,18 @@ import { submit } from "./submit.js";
 const props = function(info){
 
     info = _object(info);
-    let form = $('<form class = "dom-master-form"/>');
+    let form = $('<form/>');
     let attr = info.attributes;
     if(attr)
       form.attr(attr);
     this.loading = $('< class = "d-flex align-items-center text-secondary"/>').addChild([
-        $('<strong hidden>Validating...</strong>'),
-        $('< hidden class = "spinner-border ms-auto"/>')
+        $('<strong hidden>Please wait...</strong>'),
+        $('< hidden class = "spinner-border spinner-sm ms-auto"/>')
     ]);
     this.fields = [];
     let sb = info.submitButton;
     let cb = info.cancelButton;
-    this.container = $('</>').addChild([this.loading, $('< class="mb-1"/>').addChild(info.description || ''), form]);
+    this.container = $('< class = "dom-master-plugin"/>').addChild([this.loading, $('< class="mb-1"/>').addChild(info.description || ''), form]);
     this.submitButton = (isElement(sb) ? $(sb): $(`<button class = "btn btn-primary submit-btn"/>`).text(typeof sb === 'string' ? sb : 'Done')).click(submit.bind(this));
     this.cancelButton = (isElement(cb) ? $(cb): $(`<button class = "btn btn-light cancel-btn"/>`).text(typeof cb === 'string' ? cb : 'Cancel')).click(() => this.modal && this.modal.hide());
     this.form = form;

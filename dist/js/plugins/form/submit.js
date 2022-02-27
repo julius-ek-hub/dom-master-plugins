@@ -30,11 +30,11 @@ export function onOk(cb){
  if(typeof cb === 'function')
    this.ok = cb;
  else
-   throw new Error('\'onOk\' must be a function')
+   throw new Error('\'callback\' must be a function')
 }
 
-export const submit = async function (){
-    const {validating, disabled, modal, form, ok, submitButton} = this;
+export async function submit(){
+    const {validating, disabled, modal, form, ok, submitButton} = this;;
     if(validating || disabled) return;
     loader.call(this).show()
     submitButton.blur();

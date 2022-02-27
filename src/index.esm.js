@@ -1,4 +1,4 @@
- import $ from "./lib.js";
+ import $ from './lib';
 
  import modal from './plugins/modal.js';
  import Alert from './plugins/alert.js';
@@ -9,7 +9,7 @@
  import card from "./plugins/card.js";
  import expandable from "./plugins/expandable.js";
  import form from './plugins/form/index.js';
- import collapse from "./plugins/collapse.js";
+ import collapsible from "./plugins/collapse.js";
  import animateScroll from "./plugins/animate-scroll.js";
  import mountAt from "./plugins/mount-at.js";
  import movable from "./plugins/movable.js";
@@ -30,7 +30,7 @@
  $.card = card;
  $.expandable = expandable;
  $.form = form;
- $.collapse = collapse;
+ $.collapse = collapsible;
  $.animateScroll = animateScroll;
  $.mountAt = mountAt;
  $.movable = movable;

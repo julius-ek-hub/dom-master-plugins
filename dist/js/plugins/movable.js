@@ -38,7 +38,7 @@ const movable = (movableElement, props) => {
     el.style({ zIndex: ++states.zIindex }).on('mousedown touchstart', () => el.style({ zIndex: ++states.zIindex }));
     if (!movepoint)
         movepoint = el;
-    if (isElement(movepoint)){
+    if (isElement(movepoint) || typeof movepoint === 'string'){
         movepoint = $(movepoint);
     }
     movepoint

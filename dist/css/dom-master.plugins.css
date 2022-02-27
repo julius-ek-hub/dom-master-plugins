@@ -43,40 +43,6 @@ button.accordion-btn-collapsed::after {
   }
 }
 
-form.dom-master-form .invalid {
-  border-color: #dc3545;
-}
-
-form.dom-master-form .invalid:not([type=checkbox]), form.dom-master-form .invalid:not(select) {
-  border-color: #dc3545 !important;
-  padding-right: calc(1.5em + 0.75rem);
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right calc(0.375em + 0.1875rem) center;
-  background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
-}
-
-form.dom-master-form .invalid .form-check-label {
-  color: #dc3545;
-}
-
-form.dom-master-form .valid {
-  border-color: #198754;
-}
-
-form.dom-master-form .valid:not([type=checkbox]), form.dom-master-form .valid:not(select) {
-  border-color: #198754 !important;
-  padding-right: calc(1.5em + 0.75rem);
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right calc(0.375em + 0.1875rem) center;
-  background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
-}
-
-form.dom-master-form .valid .form-check-label {
-  color: #198754;
-}
-
 input:is([type=calendar]):not(.no-icon) {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='currentColor' d='M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5ZM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2ZM8 7.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
@@ -85,230 +51,274 @@ input:is([type=calendar]):not(.no-icon) {
   cursor: pointer;
 }
 
-.calendar {
+.dom-master-plugin .toast-danger {
+  color: #842029;
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+}
+
+.dom-master-plugin form .invalid:not([type=checkbox]) {
+  border-color: #dc3545 !important;
+  padding-right: calc(1.5em + 0.75rem);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right calc(0.375em + 0.1875rem) center;
+  background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+.dom-master-plugin form .invalid:not([type=checkbox]) .form-check-label {
+  color: #dc3545;
+}
+
+.dom-master-plugin form .valid:not(input[type=checkbox]) {
+  border-color: #198754 !important;
+  padding-right: calc(1.5em + 0.75rem);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right calc(0.375em + 0.1875rem) center;
+  background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+.dom-master-plugin form .valid:not(input[type=checkbox]) .form-check-label {
+  color: #198754;
+}
+
+.dom-master-plugin .spinner-border {
+  height: 1.5em;
+  width: 1.5em;
+}
+
+.dom-master-plugin.calendar {
   border-radius: 10px;
   min-width: 300px;
   min-height: 500px;
 }
 
-.calendar button {
+.dom-master-plugin.calendar button {
   -webkit-transition: 0.5s all;
   transition: 0.5s all;
 }
 
-.calendar button:disabled {
+.dom-master-plugin.calendar button:disabled {
   opacity: 0.1;
 }
 
-.calendar .date-picker {
+.dom-master-plugin.calendar .date-picker {
   background: inherit;
 }
 
-.calendar .date-picker .days-table button {
+.dom-master-plugin.calendar .date-picker .days-table button {
   width: 35px;
   height: 35px;
 }
 
-.calendar .date-picker .date-slider button:first-child, .calendar .date-picker .date-slider button:last-child {
+.dom-master-plugin.calendar .date-picker .date-slider button:first-child, .dom-master-plugin.calendar .date-picker .date-slider button:last-child {
   width: 45px;
   height: 45px;
   padding: 4px;
 }
 
-.calendar .date-picker .date-picker-result {
+.dom-master-plugin.calendar .date-picker .date-picker-result {
   padding: 10px 20px;
   height: 90px;
 }
 
-.calendar .date-picker .date-picker-result > button {
+.dom-master-plugin.calendar .date-picker .date-picker-result > button {
   min-width: 50px;
 }
 
-.calendar .date-picker .date-picker-footer {
+.dom-master-plugin.calendar .date-picker .date-picker-footer {
   padding: 10px;
   height: 80px;
 }
 
-.calendar .month-picker {
+.dom-master-plugin.calendar .month-picker {
   background: inherit;
 }
 
-.calendar .years-picker {
+.dom-master-plugin.calendar .years-picker {
   background: inherit;
 }
 
-.calendar.light {
+.dom-master-plugin.calendar.light {
   background: #fff;
   color: #212529;
 }
 
-.calendar.light button {
+.dom-master-plugin.calendar.light button {
   color: #212529;
   background: #fff;
 }
 
-.calendar.light button:hover {
+.dom-master-plugin.calendar.light button:hover {
   background: rgba(33, 37, 41, 0.08);
   color: #212529;
 }
 
-.calendar.light button.active {
+.dom-master-plugin.calendar.light button.active {
   background: #212529;
   color: #fff;
 }
 
-.calendar.light .date-picker-result,
-.calendar.light .with-pack-button,
-.calendar.light .date-picker-footer {
+.dom-master-plugin.calendar.light .date-picker-result,
+.dom-master-plugin.calendar.light .with-pack-button,
+.dom-master-plugin.calendar.light .date-picker-footer {
   background: #fafafa;
 }
 
-.calendar.light .date-picker-result,
-.calendar.light .with-pack-button {
+.dom-master-plugin.calendar.light .date-picker-result,
+.dom-master-plugin.calendar.light .with-pack-button {
   border-bottom: 1px solid #e6e6e6;
 }
 
-.calendar.light .date-picker-footer {
+.dom-master-plugin.calendar.light .date-picker-footer {
   border-top: 1px solid #e6e6e6;
 }
 
-.calendar.pure-light {
+.dom-master-plugin.calendar.pure-light {
   background: #fff;
   color: #212529;
 }
 
-.calendar.pure-light button {
+.dom-master-plugin.calendar.pure-light button {
   color: #212529;
   background: #fff;
 }
 
-.calendar.pure-light button:hover {
+.dom-master-plugin.calendar.pure-light button:hover {
   background: rgba(33, 37, 41, 0.08);
   color: #212529;
 }
 
-.calendar.pure-light button.active {
+.dom-master-plugin.calendar.pure-light button.active {
   background: #212529;
   color: #fff;
 }
 
-.calendar.pure-light .date-picker-result,
-.calendar.pure-light .with-pack-button,
-.calendar.pure-light .date-picker-footer {
+.dom-master-plugin.calendar.pure-light .date-picker-result,
+.dom-master-plugin.calendar.pure-light .with-pack-button,
+.dom-master-plugin.calendar.pure-light .date-picker-footer {
   background: "";
 }
 
-.calendar.pure-light .date-picker-result,
-.calendar.pure-light .with-pack-button {
+.dom-master-plugin.calendar.pure-light .date-picker-result,
+.dom-master-plugin.calendar.pure-light .with-pack-button {
   border-bottom: "";
 }
 
-.calendar.pure-light .date-picker-footer {
+.dom-master-plugin.calendar.pure-light .date-picker-footer {
   border-top: "";
 }
 
-.calendar.dark {
+.dom-master-plugin.calendar.dark {
   background: #212529;
   color: #ced4da;
 }
 
-.calendar.dark button {
+.dom-master-plugin.calendar.dark button {
   color: #ced4da;
   background: #212529;
 }
 
-.calendar.dark button:hover {
+.dom-master-plugin.calendar.dark button:hover {
   background: rgba(206, 212, 218, 0.08);
   color: #ced4da;
 }
 
-.calendar.dark button.active {
+.dom-master-plugin.calendar.dark button.active {
   background: #ced4da;
   color: #212529;
 }
 
-.calendar.dark .date-picker-result,
-.calendar.dark .with-pack-button,
-.calendar.dark .date-picker-footer {
+.dom-master-plugin.calendar.dark .date-picker-result,
+.dom-master-plugin.calendar.dark .with-pack-button,
+.dom-master-plugin.calendar.dark .date-picker-footer {
   background: #383f45;
 }
 
-.calendar.dark .date-picker-result,
-.calendar.dark .with-pack-button {
+.dom-master-plugin.calendar.dark .date-picker-result,
+.dom-master-plugin.calendar.dark .with-pack-button {
   border-bottom: 1px solid #333333;
 }
 
-.calendar.dark .date-picker-footer {
+.dom-master-plugin.calendar.dark .date-picker-footer {
   border-top: 1px solid #333333;
 }
 
-.calendar.pure-dark {
+.dom-master-plugin.calendar.pure-dark {
   background: #212529;
   color: #ced4da;
 }
 
-.calendar.pure-dark button {
+.dom-master-plugin.calendar.pure-dark button {
   color: #ced4da;
   background: #212529;
 }
 
-.calendar.pure-dark button:hover {
+.dom-master-plugin.calendar.pure-dark button:hover {
   background: rgba(206, 212, 218, 0.08);
   color: #ced4da;
 }
 
-.calendar.pure-dark button.active {
+.dom-master-plugin.calendar.pure-dark button.active {
   background: #ced4da;
   color: #212529;
 }
 
-.calendar.pure-dark .date-picker-result,
-.calendar.pure-dark .with-pack-button,
-.calendar.pure-dark .date-picker-footer {
+.dom-master-plugin.calendar.pure-dark .date-picker-result,
+.dom-master-plugin.calendar.pure-dark .with-pack-button,
+.dom-master-plugin.calendar.pure-dark .date-picker-footer {
   background: "";
 }
 
-.calendar.pure-dark .date-picker-result,
-.calendar.pure-dark .with-pack-button {
+.dom-master-plugin.calendar.pure-dark .date-picker-result,
+.dom-master-plugin.calendar.pure-dark .with-pack-button {
   border-bottom: "";
 }
 
-.calendar.pure-dark .date-picker-footer {
+.dom-master-plugin.calendar.pure-dark .date-picker-footer {
   border-top: "";
 }
 
-.calendar.deem-light {
+.dom-master-plugin.calendar.deem-light {
   background: #ced4da;
   color: #212529;
 }
 
-.calendar.deem-light button {
+.dom-master-plugin.calendar.deem-light button {
   color: #212529;
   background: #ced4da;
 }
 
-.calendar.deem-light button:hover {
+.dom-master-plugin.calendar.deem-light button:hover {
   background: rgba(33, 37, 41, 0.08);
   color: #212529;
 }
 
-.calendar.deem-light button.active {
+.dom-master-plugin.calendar.deem-light button.active {
   background: #212529;
   color: #ced4da;
 }
 
-.calendar.deem-light .date-picker-result,
-.calendar.deem-light .with-pack-button,
-.calendar.deem-light .date-picker-footer {
+.dom-master-plugin.calendar.deem-light .date-picker-result,
+.dom-master-plugin.calendar.deem-light .with-pack-button,
+.dom-master-plugin.calendar.deem-light .date-picker-footer {
   background: #c8cfd6;
 }
 
-.calendar.deem-light .date-picker-result,
-.calendar.deem-light .with-pack-button {
+.dom-master-plugin.calendar.deem-light .date-picker-result,
+.dom-master-plugin.calendar.deem-light .with-pack-button {
   border-bottom: 1px solid #e6e6e6;
 }
 
-.calendar.deem-light .date-picker-footer {
+.dom-master-plugin.calendar.deem-light .date-picker-footer {
   border-top: 1px solid #e6e6e6;
+}
+
+.dom-master-plugin.nested-collapse .dropdown-item svg {
+  -webkit-transition: 0.4s -webkit-transform;
+  transition: 0.4s -webkit-transform;
+  transition: 0.4s transform;
+  transition: 0.4s transform, 0.4s -webkit-transform;
 }
 /*# sourceMappingURL=dom-master.plugins.css.map */

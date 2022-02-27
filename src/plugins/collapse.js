@@ -8,13 +8,13 @@ import $ from '../lib.js'
  * @param {HTMLElement} container Should be an HTMLElement or a domMaster object conataining 
  * at least an HTMLElement it's store.
  * @param {Boolean} toggle If true, will show the element initially. Default is false
- * @see https://www.247-dev.com/projects/dom-master/plugins/collapse
+ * @see https://www.247-dev.com/projects/dom-master/plugins/collapsible
  */
 
-const collapse = (container, toggle) => {
+const collapsible = (container, toggle) => {
     const collapse = $(container).addClass('collapse');
     const instance = collapseInstance(collapse, toggle, collapse, false);
     return instance;
 }
 
-export default collapse;
+export default collapsible; 

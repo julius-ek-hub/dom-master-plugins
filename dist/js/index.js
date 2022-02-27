@@ -7,7 +7,7 @@
  import card from "./plugins/card.js";
  import expandable from "./plugins/expandable.js";
  import form from './plugins/form/index.js';
- import collapse from "./plugins/collapse.js";
+ import collapsible from "./plugins/collapse.js";
  import animateScroll from "./plugins/animate-scroll.js";
  import mountAt from "./plugins/mount-at.js";
  import movable from "./plugins/movable.js";
@@ -29,7 +29,7 @@ export {
     card,
     expandable,
     form,
-    collapse,
+    collapsible,
     animateScroll,
     mountAt,
     movable,
@@ -40,4 +40,4 @@ export {
     _window,
     Calendar,
     pickFile
-};
+}; 

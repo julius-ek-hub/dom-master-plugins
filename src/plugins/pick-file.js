@@ -6,7 +6,8 @@ import $ from '../lib.js';
  * so the user can choose a file depending on the attributes you pass. Then returns a 
  * Promise that resolves with an array of files only if the user actually chooses.
  * @param {{}} attributes Should be attributes for input Element in key/value pairs.
- * @returns {Promise}
+ * @returns {Promise<File[]>}
+ * @see https://www.247-dev.com/projects/dom-master/plugins/pickFile
  */
 
 const pickFile = (attributes) => {
@@ -14,7 +15,7 @@ const pickFile = (attributes) => {
         let inp = $('<input type="file" hidden/>');
         attributes = _object(attributes);
         delete attributes.type;
-        inp.attr();
+        inp.attr(attributes);
         inp.appendTo(document.body);
         inp.on('change', e=> {
             res([].slice.call(e.target.files))

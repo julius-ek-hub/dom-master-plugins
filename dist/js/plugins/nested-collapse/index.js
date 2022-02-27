@@ -7,7 +7,7 @@ import addItem from "./add-item.js";
 import activateCollapse from "./activations.js";
 
 /**
- * Dynamically generate a nested collapsible element
+ * Generates a nested collapsible element
  * @param {[{
  * href: URL,
  * id: String,
@@ -41,15 +41,29 @@ const nestedCollapse = (items, props) => {
     validate(items);
 
     items.forEach(item => {
-        container.addClass('jql-nested-collapse-container').addChild(addItem.call(defaultProps, item))
+        container.addClass('nested-collapse dom-master-plugin').addChild(addItem.call(defaultProps, item))
     });
 
     active && activateCollapse.call(defaultProps, active)
 
-    return { 
+    return {
+        /**
+         * The result of the nested collapse as a dom master object
+         */ 
         container, 
+        /**
+         * Collapses to a given id
+         * @param {String} id id to collapse to
+         */
         active(id){
            id ? activateCollapse.call(defaultProps, id) : _active 
+        },
+        /**
+         * Appends the result to a given element
+         * @param {String | Element} element Element or selector string
+         */
+        appendTo(element){
+            container.appendTo(element); 
         }
     };
 }

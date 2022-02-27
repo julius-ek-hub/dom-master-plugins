@@ -28,63 +28,133 @@ import { appendTo, close, exists, inModal, loader, onOk, reset, submit } from ".
 const form = (props) => {
 let allProps = Props.call({}, props);
 
-    return {
-        /**
-        * 
-        * @param {[{ 
-        * type: 'button' | 'checkbox' | 'textarea' | 'list' | 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'radio' | 'range' | 'reset' | 'search' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week',
-        * id: Number | String,
-        * placeholder,
-        * default_value,
-        * description: String,
-        * required: Boolean,
-        * label: String,
-        * options: [{id: Number | String, value: Number | String, selected: Boolean}],
-        * min: Number,
-        * max: Number,
-        * height: Number,
-        * validate: {
-        * validator: Function,
-        * when: 'submit' | 'live'
-        * }
-        * }]} _fields 
-        * @param {String} after 
-        */
-        addFields(fields, after){
-            return addFields.call(allProps, fields, after);
-        },
-        modal(){
-            return inModal.call(allProps);
-        },
-        close(){
-            return close.call(allProps);
-        },
-        ok(cb){
-            return onOk.call(allProps, cb);
-        },
-        exists(id){
-            return exists.call(allProps, id);
-        },
-        reset(){
-            return reset.call(allProps);
-        },
-        appendTo(element){
-            return appendTo.call(allProps, element)
-        },
-        submit(){
-            return allProps.disabled ? undefined : submit.call(allProps);
-        },
-        loader(){
-            return loader.call(allProps)
-        },
-        warn(id, message){
-            allProps.form.find(`div#field_${id} .text-danger`).refill(message);
-        },
-        shake(){allProps.modal && allProps.modal.shake()},
-        disable(value){
-            allProps.disabled = _boolean(value);
-        }
+return {
+    /**
+    * 
+    * @param {[{ 
+    * type: 'button' | 'checkbox' | 'textarea' | 'list' | 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'radio' | 'range' | 'reset' | 'search' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week',
+    * id: Number | String,
+    * placeholder,
+    * default,
+    * description: String,
+    * required: Boolean,
+    * label: String,
+    * options: [{id: Number | String, value: Number | String, selected: Boolean}],
+    * min: Number,
+    * max: Number,
+    * height: Number,
+    * validate: {
+    * validator: Function<String>,
+    * when: 'submit' | 'live'
+    * }
+    * }]} fields 
+    * @param {String} after 
+    */
+
+    addFields(fields, after){
+        return addFields.call(allProps, fields, after);
+    },
+
+    /**
+     * Launches the form in a modal
+    */
+
+    modal(){
+        return inModal.call(allProps);
+    },
+
+    /**
+     * If form was lunched in a modal, this method drops the modal
+    */
+
+    close(){
+        return close.call(allProps);
+    },
+
+    /**
+     * Sets a function to call when the results are ready.
+     * @param {Function} callback 
+    */
+
+    ok(callback){
+        return onOk.call(allProps, callback);
+    },
+
+    /**
+     * Checks if a field with the given id exists
+     * @param {String} id 
+     * @returns {Boolean}
+    */
+
+    exists(id){
+        return exists.call(allProps, id);
+    },
+
+    /**
+     * Resets the form
+    */
+
+    reset(){
+        return reset.call(allProps);
+    },
+
+    /**
+     * Appends the form to another element, you can also use .modal()
+     * @param {HTMLElement | String} element HTMLElement or a selector string
+     * @returns 
+     */
+
+    appendTo(element){
+        return appendTo.call(allProps, element)
+    },
+
+    /**
+     * Submits the form
+    */
+
+    submit(){
+        return allProps.disabled ? undefined : submit.call(allProps);
+    },
+
+    /**
+     * The loading UI
+     * @returns {{
+     * hide: Function,
+     * show: Function,
+     * message: loader
+     * }}
+     */
+
+    loader(){
+        return loader.call(allProps)
+    },
+
+    /**
+     * Display a warning message for a particular field.
+     * @param {String} id The field id
+     * @param {String} message The message
+     */
+
+    warn(id, message){
+        allProps.form.find(`div#field_${id} .text-danger`).refill(message);
+    },
+
+    /**
+     * If the form was lunched in a modal, this method when called will shake the modal
+     * probably to indicate that something is not right
+     */
+
+    shake(){allProps.modal && allProps.modal.shake()},
+
+    /**
+     * Disables or enables the form
+     * @param {Boolean} value 
+     */
+
+    disable(value){
+        allProps.disabled = _boolean(value);
     }
+}
 }
 
 export default  form;

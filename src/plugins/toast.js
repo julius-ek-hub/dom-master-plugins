@@ -75,7 +75,7 @@ const toast = (message, props) => {
         toastContainer.appendTo(document.body);
         runningToastsContainers[position] = toastContainer;
     }
-    const toast = __('toast').attr({ role: "alert", "aria-live": "assertive", "aria-atomic": "true" });
+    const toast = __('toast dom-master-plugin').attr({ role: "alert", "aria-live": "assertive", "aria-atomic": "true" });
 
     const toastHeader = __(`toast-header${type === 'error' ? ' toast-danger' : ''}`);
     const icon = type === 'error' ? warningIcon() : notificationIcon();
@@ -110,13 +110,25 @@ const toast = (message, props) => {
         }
         toast.on(cbs[event], callback);
         return {
-            hide(){bs.hide()},
-            show(){bs.show()},
+            
             /**
-             * Attach eventListeners to modal
+             * Hides the Toast
+             */
+
+            hide(){bs.hide()},
+
+            /**
+             * Shows the Toast
+             */
+
+            show(){bs.show()},
+
+            /**
+             * Attach eventListeners to Toast
              * @param {'show' | 'shown' | 'hide' | 'hidden'} event 
              * @param {Function} callback 
              */
+
             on(event, callback){
                 return on(event, callback);
             }
@@ -136,23 +148,41 @@ const toast = (message, props) => {
         bs.hide();
     });
     Object.values(runningToastsContainers).length > 1 && updateTime();
+
     return {
+
         /**
-         * Attach eventListeners to modal
+         * Attach eventListeners to Toast
          * @param {'show' | 'shown' | 'hide' | 'hidden'} event 
          * @param {Function} callback 
          */
+
         on(event, callback){
             return on(event, callback);
         },
+
+        /**
+         * Hides the Toast
+         */
+
         hide(){
             if(!running) return;
             bs.hide();
         },
+
+        /**
+         * Shows the Toast
+         */
+
         show(){
             if(!running) return;
             bs.show();
         },
+
+        /**
+         * The Bootstrap 5 Toast instance
+         */
+
         i: bs
     }
 }

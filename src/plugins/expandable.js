@@ -3,13 +3,18 @@ import $ from '../lib.js';
 import modal from "./modal.js";
 let { jcc, aic, df, w, h } = bs;
 
+/**
+ * Clones an element and expand it in a modal for more visibility
+ * @param {HTMLElement | String} element HTMLElement or selector string
+ */
+
 const expandable = (el) => {
     return $(el).style({ cursor: 'pointer' }).on('click', () => {
         let scale = 1;
         let clone = $(el).clone().removeClass('w-50').addClass('w-100')
         let box = $('</>').addClass([df, w, h, jcc, aic]);
         box.addChild(clone);
-        let m = modal(box, { background: 'transparent', innerScroll: false });
+        let m = modal(box, { background: 'transparent', innerScroll: false});
         m.on('hidden', m.drop);
         m.show();
 

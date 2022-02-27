@@ -45,19 +45,14 @@ const carousel = (items, props) => {
         keyboard,
         touch,
         cycle,
-        theme,
         speed
     } = _object(props);
 
-        const themes = {
-            dark: { bg: 'dark', txt: 'light' },
-            light: { bg: 'light', txt: 'dark' }
-        };
         cycle = _boolean(cycle, true);
         if (!_array(items, null)) throw new Error('Carousel expects valid items')
         const trans = { slide: 'slide', fade: 'carousel-fade' };
         tr = trans[(tr || '').toLowerCase()] || 'slide';
-        let carouselContainer = __(`carousel bg-${(themes[theme] ||{bg:'light'}).bg} carousel-${(themes[theme] || {txt: 'dark'}).txt} ${tr}`).addClass([h, w]);
+        let carouselContainer = __(`carousel ${tr} carousel-dark dom-master-plugin`).addClass([h, w]);
         const inner = __('carousel-inner').addClass([h, w]);
         const indicatorsContainer = __('carousel-indicators');
         const indicators = items.map((slide, index) => {
@@ -124,7 +119,13 @@ const carousel = (items, props) => {
         prev.addChild([
             __('carousel-control-prev-icon', 'span').attr({ 'aria-hidden': 'true' }),
             __('visually-hidden', 'span').addChild('Previous')
-        ])
+        ]);
+
+        /**
+         * Attach eventListeners to modal
+         * @param {'slide' | 'slid'} event 
+         * @param {Function} callback 
+         */
 
         const on = (event, callback) => {
             const cbs = {
@@ -163,18 +164,43 @@ const carousel = (items, props) => {
         _boolean(autostart, true) && _carousel.cycle();
     
     return {
+
+        /**
+         * Cycles the carousel to item n
+         * @param {Number} n 
+         */
         to(n){
             return _carousel.to(n);
         },
+
+        /**
+         * Cycles the carousel to the next item
+         */
+
         next(){
             return _carousel.next();
         },
+
+        /**
+         * Cycles the carousel to the previous item
+         */
+
         prev(){
             return _carousel.prev();
         },
+
+        /**
+         * Cycles through the carousel from left to right
+         */
+
         cycle(){
             return _carousel.cycle();
         },
+
+        /**
+         * Stops the carousel from cycling
+         */
+
         pause(){
             return _carousel.pause();
         },
@@ -188,17 +214,39 @@ const carousel = (items, props) => {
         on(event, callback){
            return on(event, callback);
         },
+
+        /**
+         * The carousel container as a DOM master object
+         */
+
         container: carouselContainer,
+
+        /**
+         * Appends the carousel to an element
+         * @param {HTMLElement | String} container Can be an HTMLElement or selector string
+         * @returns 
+         */
         appendTo(container){
            return carouselContainer.appendTo(container)
         },
+
+        /**
+         * Bootstrap 5 carousel instance
+         */
+
         i: _carousel
     };
 }
 
-carousel.init = function(existing){
-    if (isElement(existing)) {
-        let _carousel = Carousel.getOrCreateInstance(toElement(existing)[0]);
+/**
+ * Initializes an already created carousel in the DOM
+ * @param {HTMLElement | String} existingCarouselElement Can be an HTMLElement or selector string
+ * @returns {bootstrap.CarouselInstance}
+ */
+
+carousel.init = function(existingCarouselElement){
+    if ($(existingCarouselElement).exists()) {
+        let _carousel = Carousel.getOrCreateInstance(toElement(existingCarouselElement)[0]);
         _carousel.cycle();
         return _carousel;
     } 

@@ -28,12 +28,12 @@ const left_line = () => $('</>').style({
 });
 
 const addItem = function(item, line) {
-    const {li, grid, onclick} = this;
+    const {li, grid, onclick, instanceID} = this;
     const children = item.children;
     let open = false;
-    const id = item.id
+    const id = instanceID + item.id
     if (children) {
-        const col = $('< class = "collapse jql-nested-collapse-container"/>')
+        const col = $('< class = "collapse nested-collapse"/>')
             .id(id)
             .addChild(children.map(child => addItem.call(this, child, true)))
             .style({ marginLeft: '23px' });

@@ -21,6 +21,8 @@ let ini_x = 6,
   * title: String,
   * theme: 'windows' | 'mac',
   * themeColor: CSS,
+  * x: Number,
+  * y: Number,
   * movable: Boolean,
   * resizable: Boolean
   * } | Number} props All the properties of the window would be extracted from here.
@@ -29,10 +31,12 @@ let ini_x = 6,
   * @property title, The title of the window
   * @property height, The height of the window
   * @property width, the width of the window
+  * @property x x-cordinate for mounting. Default is 6
+  * @property y y-cordinate for mounting. Default is 6
   * @property border, Should be CSS border property value.
   * @property theme, How the window should appear like. Ms Windows' or Apple Mac's
   * @property themeColor, Background color of the header. Choose a color to match the text color which is dark.
-  * @see https://www.247-dev.com/projects/dom-master/doc/window
+  * @see https://www.247-dev.com/projects/dom-master/plugins/window
   */
 
 const _window = (content = '', props) => {
@@ -56,7 +60,7 @@ const _window = (content = '', props) => {
     theme = _string(theme).toLowerCase() === 'windows' ? 'windows' : 'mac';
 
     let badge = (type = 'danger') => __(`badge rounded-pill bg-${type} p-2`, 'span').addChild(__('visually-hidden').addChild('close'));
-    let el = __([oh, 'rounded shadow']).style({ height, width, transition: '10ms height, 100ms width' }).style({ border });
+    let el = __([oh, 'rounded shadow dom-master-plugin']).style({ height, width, transition: '10ms height, 100ms width' }).style({ border });
     let titleBar = __(['w-100 text-nowrap ps-2', oh, df, aic]).addChild(title)
     let maxinizeBtn = __('ps-0', 'button').addChild(badge('success')).attr({ title: 'Maximize' });
     let minimizeBtn = __('ps-0', 'button').addChild(badge('warning')).attr({ title: 'Minimize' });
@@ -76,8 +80,7 @@ const _window = (content = '', props) => {
     let body = __([oa, 'mini-scrollbar text-break']).style({ height: 'calc(100% - 40px)', background: 'white' }).addChild(content);
     typeof content === 'string' && body.addClass('p-2')
     el.addChild([header, body]);
-    mountAt(el, e, {height, width, movable: movable ? header: false });
-
+ 
     const minimize = () => {
         if (!el.attr('expanded') || running === false || !resizable) return;
         el.style({
@@ -90,6 +93,7 @@ const _window = (content = '', props) => {
         }).removeAttribute('expanded');
 
         callbacks.minimized?.call();
+        callbacks.resized?.call();
     };
     const maximize = () => {
         if (el.attr('expanded') || running === false || !resizable) return;
@@ -106,10 +110,10 @@ const _window = (content = '', props) => {
             left: '0'
         }).attr({ 'expanded': 'true' });
         callbacks.maximized?.call();
+        callbacks.resized?.call();
     };
 
     const close = () => {
-        if(running === false) return;
         el.drop();
         ini_x -= 20;
         ini_y -= 20;
@@ -125,7 +129,9 @@ const _window = (content = '', props) => {
         el.style({ width: _width + 'px', height: _height + 'px' });
         width = _width;
         height = _height;
+        callbacks.resized?.call();
     };
+
     const on = (event, callback) => {
         if(typeof callback !== 'function' || typeof event !== 'string') return;
           event.trim().split(' ').map(e => {
@@ -157,40 +163,72 @@ const _window = (content = '', props) => {
     })
     ini_x += 20;
     ini_y += 20;
+
     return { 
+
+        /**
+         * Maximizes the window
+         */
+
         minimize(){
             minimize();
         }, 
+
+        /**
+         * Minimizes the window
+         */
+
         maximize(){
             maximize()
         }, 
+
+        /**
+         * Opens the window
+         */
+
+        open(){
+            mountAt(el, e, {height, width, movable: movable ? header: false });
+            callbacks.opened?.call();
+        },
+
+        /**
+         * Closes the window
+         */
+
         close(){
             close()
         }, 
+
         /**
-         * 
+         * Moves the window to new position
          * @param {Number} x 
          * @param {Number} y 
          */
+
         moveTo(x, y){
             moveTo(x, y);
         }, 
+
         /**
-         * 
+         * Resizes the window
          * @param {Number} newWidth 
          * @param {Number} newHeight 
          */
+
         resizeTo(newWidth, newHeight){
             resizeTo(newWidth, newHeight);
         }, 
+
         /**
-         * 
-         * @param {'resized' | 'closed' | 'minimized' | 'maximized' | 'moved'} event 
+         * Listen for events
+         * @param {'resized' | 'closed' | 'minimized' | 'maximized' | 'opened'} event 
          * @param {Function} callback 
          */
+
         on(event, callback){
             on(event, callback)
-        } }
+        } 
+    }
 }
 
 export default _window;

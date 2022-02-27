@@ -13,7 +13,7 @@ import { __ } from "../utils.js";
 
 const card = (body, props) => {
     const { header, footer } = _object(props);
-    const card = __('card');
+    const card = __('card dom-master-plugin');
     if (header)
         card.addChild(__('card-header').addChild(header))
     card.addChild(__('card-body').style({ whiteSpace: 'normal' }).addChild(body || ''))

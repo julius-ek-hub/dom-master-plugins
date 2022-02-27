@@ -30,7 +30,7 @@ export function onOk(cb){
  if(typeof cb === 'function')
    this.ok = cb;
  else
-   throw new Error('\'onOk\' must be a function')
+   throw new Error('\'callback\' must be a function')
 }
 
 export async function submit(){
@@ -43,7 +43,6 @@ export async function submit(){
     loader.call(this).hide();
     if (errors) {
         modal && modal.shake();
-       // form.addClass('was-validated');
         return;
     }
     modal && modal.hide();

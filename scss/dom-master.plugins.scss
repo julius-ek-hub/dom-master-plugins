@@ -1,3 +1,12 @@
 @import 'common';
 @import 'form';
+@import 'nestedcollapse';
+@import 'toast';
 @import 'calendar/calendar';
+
+.dom-master-plugin{
+    @include toast();
+    @include form();
+    @include Calendar();
+    @include nestedCollapse()
+}

@@ -58,7 +58,7 @@ const modal = (content, props) => {
     });
     header.addChild([h2, h3]);
 
-    let body = __('modal-body').addChild(content || '');
+    let body = __('modal-body text-break').addChild(content || '');
     let foot = __('modal-footer');
 
     if (bl) {
@@ -71,7 +71,7 @@ const modal = (content, props) => {
 
     footer && b2.addChild(foot.addChild(footer));
 
-    let modal = __("modal fade").addChild(b1.addChild(b2)).style({ zIndex: ++states.zIindex });
+    let modal = __("modal fade dom-master-plugin").addChild(b1.addChild(b2));
     modal.appendTo(parent);
 
     let bs = new Modal(modal.plain(0), {
@@ -90,24 +90,39 @@ const modal = (content, props) => {
         }
         modal.on(cbs[event], callback);
         return {
+            
+            /**
+             * Hides the modal
+             */
+
             hide(){bs.hide()},
+
+            
+            /**
+             * Shows the modal
+             */
+
             show(){bs.show()},
+
             /**
              * Attach eventListeners to modal
              * @param {'show' | 'shown' | 'hide' | 'hidden'} event 
              * @param {Function} callback 
              */
+
             on(event, callback){return on(event, callback)}
         }
     };
 
     const handleListener = e => {
         if (!bs._element)
-            $(window)._on('keyup', handleListener);
+            return $(window)._on('keyup', handleListener);
         ['escape', 'enter'].includes(e.code.toLowerCase()) && bs.hide();
     }
 
-    _boolean(keyboard) && $(window).on('keyup', handleListener);
+    if(_boolean(keyboard) && backdrop !== 'static')
+        $(window).on('keyup', handleListener);
+
     const drop = async() => {
         if(!running) return;
         await sleep(500);
@@ -123,15 +138,50 @@ const modal = (content, props) => {
          * @param {Function} callback 
          */
         on(event, callback){return on(event, callback)},
+
+        /**
+         * Hides the modal
+         */
+
         hide(){bs.hide()},
-        show(){bs.show()},
+
+        /**
+         * Shows the modal
+         */
+
+        show(){
+            bs.show();
+            states.zIindex += 4;
+            modal.style({ zIndex: states.zIindex });
+            $('body').lastChild().style({zIndex: states.zIindex - 2})
+        },
+
+        /**
+         * Toggles the modal's visibility
+         */
+
         toggle(){bs.toggle()},
+
+        /**
+         * Shakes/vibrate the modal
+         */
+
         shake(){
             backdrop === 'static' && modal.click()
         },
+
+        /**
+         * Removes modal from the DOM
+         */
+
         drop(){
             return drop();
         },
+
+        /**
+         * The Bootstrap 5 modal instance
+         */
+
         i: bs
     }
 }

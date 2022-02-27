@@ -26,7 +26,7 @@ const accordion = (content, props) => {
 
     let collapse = __('accordion-collapse collapse').addChild(body);
     let toggler = __(['accordion-button', bs.btn], 'button').addChild(title || '');
-    const item = __('accordion-item border-0');
+    const item = __('accordion-item border-0 dom-master-plugin');
 
     collapse.on('show.bs.collapse', () => toggler.addClass(abc))
     .on('hide.bs.collapse', () => toggler.removeClass(abc))

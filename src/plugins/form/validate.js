@@ -1,5 +1,4 @@
 import {_object} from "../../lib.js";
-import { Try} from "../../utils.js";
 import { loader } from "./submit.js";
 
 export const validator = function(details) {
@@ -59,11 +58,29 @@ export const validator = function(details) {
 
 export const checkInput = function(info, value){
     let error = null;
+    const {cancelButton, submitButton} = this;
+
     return new Promise(async(res) => {
-        if ((info.required && String(value).trim() === '') || (info.type === 'checkbox' && value == false))
-            error = 'This field is required';
+
+        if (info.required && ((String(value).trim() === '') || (info.type === 'checkbox' && value == false)))
+        error = 'This field is required';
+        
         if (info.validate) {
-            error = _object(await Try(() => info.validate.validator(value))).error;
+            [cancelButton, submitButton].map(btn => btn.disable());
+            
+            try {
+                let Validate  = info.validate.validator(value);
+
+                if(Validate instanceof Promise)
+                error = _object(await Validate).error;
+                else 
+                    error = _object(Validate).error;
+                    
+            } catch(err){
+                error = _object(err).error || 'There was a problem with this input'
+            } finally{
+                [cancelButton, submitButton].map(btn => btn.disable(false))
+            }
         }
             res(error);
     })
@@ -74,7 +91,7 @@ export const handleImmidateErrors = function(field){
         this.validating = true;
         let sd = this.getSpecificDetails(field);
         loader.call(this).show();
-        let error = await checkInput(sd.info, sd.value);
+        let error = await checkInput.call(this, sd.info, sd.value);
         let _err = field.parent().find('.text-danger');
         if (error) {
             field.addClass('invalid').removeClass('valid');
@@ -90,7 +107,6 @@ export const handleImmidateErrors = function(field){
 
 export const handleErrors = function(){
     const self = this;
-    console.log(self)
     return new Promise(async(res) => {
         self.validating = true;
         let errors = null;
@@ -99,7 +115,7 @@ export const handleErrors = function(){
         self.form.children().get().forEach(async(child, i, array) => {
             let field = child.find(`#${child.attr('field-id')}`);
             let sd = self.getSpecificDetails(field);
-            let error = await checkInput(sd.info, sd.value);
+            let error = await checkInput.call(self, sd.info, sd.value);
             let _err = field.parent().query('.text-danger').get(0);
             if (error) {
                 field.addClass('invalid');

@@ -92,7 +92,7 @@ const slideDatePicker = function(n = 0){
     datePickerResult.child(0).refill(currentYear);
 
     let lastChild = datePickerDays.lastChild();
-    lastChild = lastChild.exist() ? lastChild : null;
+    lastChild = lastChild.exists() ? lastChild : null;
 
     const newDays = $('< class="position-absolute h-100 w-100 p-1"/>');
     datePickerDays.addChild(newDays);
