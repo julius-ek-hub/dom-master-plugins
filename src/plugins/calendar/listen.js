@@ -27,7 +27,7 @@ const responsiveMount = async(holder, calendar, okCallback) => {
         }
     })
 
-    calendar.mountTo(holder.style({height: '500px', width: '300px'}));
+    calendar.render(holder.style({height: '500px', width: '300px'}));
 }
 
 const defaultMount = async(e, holder, calendar, props, okCallback) => {
