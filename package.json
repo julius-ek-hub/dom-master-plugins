@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dom-master": "^1.0.10"
+    "dom-master": "^1.0.12"
   },
   "devDependencies": {
     "webpack": "^5.69.1",
