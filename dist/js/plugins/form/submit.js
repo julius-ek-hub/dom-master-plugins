@@ -50,7 +50,6 @@ export async function submit(){
        form.submit();
     else 
        ok && ok(results);
-    reset.call(this);
 }
 
 export function inModal(){

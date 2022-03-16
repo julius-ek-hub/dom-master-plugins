@@ -1,0 +1,7 @@
+
+@mixin window {
+    &.window {
+        .header{background: #f8f9fa;}
+        .body{background: white;}
+    }
+}

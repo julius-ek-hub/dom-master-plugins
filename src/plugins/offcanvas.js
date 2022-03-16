@@ -1,6 +1,7 @@
-import { sleep, __, bs} from "../utils.js";
+import { sleep, __, states} from "../utils.js";
 
 import $, {_bootstrap, _boolean, _object} from '../lib.js';
+import { close } from "../icons.js";
 
 /**
  * ----------------------------------------------------------------
@@ -9,7 +10,8 @@ import $, {_bootstrap, _boolean, _object} from '../lib.js';
  * @param {*} content 
  * 
  * @param {{ 
- * title: Text | Element,
+ * header: Text | Element,
+ * className: String,
  * position: 'top' | 'right' | 'bottom' | 'left',
  * backdrop: Boolean,
  * keyboard: Boolean,
@@ -18,25 +20,27 @@ import $, {_bootstrap, _boolean, _object} from '../lib.js';
  * background: String,
  * border: String
  * }} props
+ * 
  * @see https://www.247-dev.com/projects/dom-master/plugins/offCanvas
  */
 
 const offCanvas = (content, props) => {
-    let { title, position, backdrop, keyboard, scroll, parent, background, border } = _object(props);
+    let { header, className, position, backdrop, keyboard, scroll, parent, background, border } = _object(props);
     const pos = { top: 'top', right: 'end', bottom: 'bottom', left: 'start' }
-    const oCanvas = __(`offcanvas dom-master-plugin offcanvas-${pos[position] || 'start'}`);
-    const header = $('</>');
-    if (title) {
-        header.addChild(title).addClass('offcanvas-header').style({ background });
-        header.addChild(__(['btn-close', bs.btn, 'text-reset'], 'button')
+    const oCanvas = __(`offcanvas ${className || ''} dom-master-plugin offcanvas-${pos[position] || 'start'}`);
+    const _header = $('</>');
+    if (header) {
+        _header.addChild(header).addClass('offcanvas-header').style({ background });
+        _header.addChild(__('btn-close', 'button')
+            .addChild(close().attr({width:'25', height: '25'}))
             .attr({'data-bs-dismiss': "offcanvas" }));
     }
     parent = parent || document.body;
     const body = __('offcanvas-body').style({ background }).addChild(content);
-    oCanvas.addChild([header, body]).appendTo(parent);
+    oCanvas.addChild([_header, body]).appendTo(parent);
     if (background) {
         body.style({ background: '' });
-        header.style({ background: '' });
+        _header.style({ background: '' });
         oCanvas.style({ background });
     }
     if (border)
@@ -55,6 +59,12 @@ const offCanvas = (content, props) => {
     }
 
     _boolean(keyboard) && $(window).on('keyup', handleListener);
+
+    const addZindex = () => {
+        states.zIindex += 4;
+        oCanvas.style({ zIndex: states.zIindex });
+        $('body').lastChild().style({zIndex: states.zIindex - 2});
+    }
 
     const on = (event, callback) => {
         const cbs = {
@@ -78,7 +88,10 @@ const offCanvas = (content, props) => {
              * Shows the modal
              */
 
-            show(){bsOffcanvas.show()},
+            show(){
+                bsOffcanvas.show();
+                addZindex();
+            },
 
             /**
              * Attach eventListeners to modal
@@ -122,6 +135,7 @@ const offCanvas = (content, props) => {
 
         show(){
             bsOffcanvas.show();
+            addZindex();
         },
 
         /**

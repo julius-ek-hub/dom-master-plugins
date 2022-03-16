@@ -31,12 +31,12 @@ const accordion = (content, props) => {
     collapse.on('show.bs.collapse', () => toggler.addClass(abc))
     .on('hide.bs.collapse', () => toggler.removeClass(abc))
 
-    const instance = collapseInstance(collapse, toggle, item, toggler);
     item.addChild([
         __('accordion-header', 'h2').addChild(toggler),
         collapse
     ]);
-    return instance;
+
+    return collapseInstance(collapse, toggle, item, toggler);
 }
 
 export default accordion;

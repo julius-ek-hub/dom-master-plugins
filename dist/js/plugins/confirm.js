@@ -8,16 +8,18 @@ import modal from "./modal.js";
  * ------------------------------------------------
  * Creates a custom confirm box using Bootstrap 5
  * ------------------------------------------------
- * @param {String} message
+ * @param {String} message a confirmation message for the user.
  * 
  * @param {{
  * title: String,
  * buttons: [{id: Number | String, value:  String | Element}],
- * }} props a confirmation message for the user or an object containing it.
+ * className: String
+ * }} props
  * 
  * @property message, a confirmation message for the user
  * @property title, The title of the confirm box
  * @property buttons, All the action buttons and their ids.. optional
+ * @property className Additional class name for your personal styles
  * 
  * @see https://www.247-dev.com/projects/dom-master/plugins/Confirm
  */
@@ -29,7 +31,7 @@ const Confirm = (message, props) => {
         { id: 1, value: 'Yes' }
     ]
 
-    const { buttons: bt, title: tt } = _object(props);
+    const { buttons: bt, title: tt, className } = _object(props);
     header = tt;
     if (Array.isArray(bt) && bt.every(b => _primitive(b.id, null) && (isElement(b.value) || _string(b.value, null))))
         buttons = bt;
@@ -47,7 +49,8 @@ const Confirm = (message, props) => {
         innerScroll: false,
         footer: buttons,
         borderLine: 'none',
-        backdrop: 'static'
+        backdrop: 'static',
+        className: `${className || ''} confirm`
     });
     return new Promise((res, rej) => {
         mod.on('hidden', () => {

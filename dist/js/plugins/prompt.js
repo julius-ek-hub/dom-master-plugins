@@ -1,4 +1,4 @@
-import $, { _boolean, _string, _object } from "../lib.js";
+import $, { _boolean, _object } from "../lib.js";
 
 import { popUpInstances, __, bs} from "../utils.js";
 
@@ -13,29 +13,26 @@ import modal from "./modal.js";
  * type: 'color' | 'date' | 'calendar' | 'datetime-local' | 'email' | 'file' | 'month' | 'number' | 'password' | 'range' | 'tel' | 'text' | 'time' | 'url' | 'week',
  * default: String,
  * okButton: String,
- * cancelButton: String
+ * cancelButton: String,
+ * className: String
  * }} props an information to the user about the input.
  * 
  * @returns {Promise<String | String[]>}
  * @property type, The type of input. Should be an HTMlInput type
  * @property okButton, text or Element to display in the Ok button.
  * @property cancelButton, text or Element to display in the cancel button.
+ * @property className Additional class name for your personal styles
  * 
  * @see https://www.247-dev.com/projects/dom-master/plugins/Prompt
  */
 
 const Prompt = (message, props) => {
-    let {type, okButton: ob, cancelButton: cb, default: ini } = _object(props);
+    let {type, okButton: ob, cancelButton: cb, default: ini, className } = _object(props);
     type = ['color', 'date', 'calendar', 'datetime-local', 'email', 'file', 'month', 'number', 'password', 'range', 'tel', 'text', 'time', 'url', 'week'].includes(type) ? type : 'text';
-    let inp = __('form-control shadow-none border-none', 'input').attr({ type });
-    inp.style({
-        marginBottom: '-17px',
-        border: 'none',
-        borderRadius: '0',
-        borderBottom: '1px solid #ced4da'
-    }).value(ini && ini || '');
+    let inp = __('form-control shadow-none border rounded mt-3', 'input').attr({ type })
+    inp.value(ini && ini || '');
 
-    let body = [$('<h5/>').text(_string(message)), inp];
+    let body = [$('<h5/>').text(String(message)), inp];
     let done = __(bs.btn, 'button').addChild('Done');
     let cancel = __(bs.btn, 'button').addChild('Cancel');
     if (typeof ob === 'string')
@@ -49,7 +46,8 @@ const Prompt = (message, props) => {
 
     let mod = modal(body, {
         innerScroll: false,
-        footer: [cancel, done]
+        footer: [cancel, done],
+        className: `${className || ''} prompt`
     });
 
     return new Promise((res, rej) => {

@@ -41,7 +41,7 @@ const Calendar = function(customProps){
      * @param {HTMLElement | String} container The element to mount the calendar to. Can be a selector string
      */
 
-    this.mountTo = async(container)=> {
+    this.render = async(container)=> {
         if(beforeMount){
             let bm = beforeMount();
             if(bm instanceof Promise)

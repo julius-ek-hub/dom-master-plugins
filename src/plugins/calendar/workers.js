@@ -225,35 +225,41 @@ export const getProps = function(customProps){
     };
 
     customProps = customProps && typeof customProps === 'object' ? customProps : {};
-    let {activeDate, from, to, theme, format} = customProps;
+    let {activeDate: ad, from, to, theme, format} = customProps;
     from = _number(from, 1);
     to = _number(to, props.maxAllowedYear);
     props.theme = _string(theme, 'light');
     props.format = _string(format, 'MM/DD/YYYY');
     
-    activeDate = new Date(_string(activeDate, defaultDate.toLocaleDateString()));
-
+    let activeDate = new Date(typeof ad === 'string' ? ad : defaultDate.toDateString());
+    
+    
     if(from > 0 && from <= props.maxAllowedYear)
         props.from = from;
     if(to >= props.from && to <= props.maxAllowedYear)
         props.to = to;
     if(String(activeDate) === 'Invalid Date'){
+        
         const dy = defaultDate.getFullYear();
         if(dy <= props.to && dy >= props.from)
             props.activeDate = defaultDate.toLocaleDateString();
         else 
             props.activeDate = `1/1/${props.from}`;
+        
     }else {
         let y = activeDate.getFullYear();
+        let m = activeDate.getMonth();
+        let d = activeDate.getDate();
         if(y <= props.to && y >= props.from){
             if(y === props.maxAllowedYear && activeDate.getMonth() > 8)
                 props.activeDate = `1/1/${y}`;
             else 
-                props.activeDate = activeDate.toLocaleDateString();
+                props.activeDate = `${m+1}/${d}/${y}`;
         }else{
             props.activeDate = `1/1/${props.from}`;
         }
     }
+    
     const split = new Date(props.activeDate);
     props.activeYear = split.getFullYear();
     props.activeMonth = split.getMonth() + 1;

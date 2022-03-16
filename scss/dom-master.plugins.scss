@@ -2,11 +2,15 @@
 @import 'form';
 @import 'nestedcollapse';
 @import 'toast';
+@import 'window';
+@import 'modal';
 @import 'calendar/calendar';
 
 .dom-master-plugin{
     @include toast();
     @include form();
     @include Calendar();
-    @include nestedCollapse()
+    @include nestedCollapse();
+    @include window();
+    @include modal();
 }

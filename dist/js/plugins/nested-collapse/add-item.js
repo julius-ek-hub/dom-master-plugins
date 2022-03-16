@@ -77,7 +77,7 @@ const addItem = function(item, line) {
             id
         }).on('click', () => {
             if (onclick && typeof onclick === 'function')
-                onclick({ id, target: _a })
+                onclick({ id: item.id, target: _a })
             activateClass.call(this, _a);
         }).addClass(['dropdown-item no-dropdown', df, aic]).addChild(cont);
     }

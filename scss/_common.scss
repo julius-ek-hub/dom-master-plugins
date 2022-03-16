@@ -13,6 +13,14 @@
     }
 }
 
+.modal .btn-close,
+.offcanvas .btn-close,
+.toast .btn-close{
+    background: none !important;
+    color: inherit;
+    width: unset;
+    height: unset;
+}
 
 button.accordion-btn-collapsed::after {
     transform: rotate(0deg) !important;

@@ -13,11 +13,12 @@ import modal from "./modal.js";
  * ----------------------------------------------
  * @param {String | Element} message an information to the user. Can be a string or Element.
  * @param {String | Element} button  Optional button to override default. Can be text or element.
+ * @param {String} className  Additional class name for your personal styles
  * 
  * @see https://www.247-dev.com/projects/dom-master/plugins/Alert
  */
 
-const Alert  = (message, button) => {
+ const Alert  = (message, button, className) => {
     let footer = __(bs.btn, 'button').addChild('OK');
     if (typeof button === 'string')
         footer.refill(button);
@@ -26,7 +27,8 @@ const Alert  = (message, button) => {
 
     let mod = modal(message, {
         innerScroll: false,
-        footer
+        footer,
+        className: `${className || ''} Alert`,
     });
     mod.on('hidden', () => {
         popUpInstances.shift().drop();

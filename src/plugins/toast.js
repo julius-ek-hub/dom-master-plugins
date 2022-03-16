@@ -1,7 +1,7 @@
 
 import { states, sleep, bs, __, _number} from "../utils.js";
 import {_bootstrap, _boolean, _string, _primitive, _object} from '../lib.js';
-import { notificationIcon, warningIcon } from "../icons.js";
+import { notificationIcon, warningIcon, close } from "../icons.js";
 
 const { btn, oh, b_0, l_0, t_0, r_0, fixed, oa } = bs;
 
@@ -21,6 +21,7 @@ let _position = {
 
 let updateTime = async() => {
     let rtcs = Object.values(runningToastsContainers);
+   
     if (rtcs.length === 0) return;
     rtcs.forEach(rtc => {
         rtc.query('.toast-time').get().forEach(tt => {
@@ -52,7 +53,8 @@ let updateTime = async() => {
  * autohide: Boolean, 
  * animation: Boolean, 
  * delay: Number,
- * type: 'error' | 'normal'
+ * type: 'error' | 'normal',
+ * className: String
  * }} props
  * 
  * @property position, tl = Top left, tc = Top center, tr = Top right, ml = Middle left, mc = Middle center, mr = Middle right, bl = Bottom left, bc = Bottom center, br = Bottom right.
@@ -61,12 +63,14 @@ let updateTime = async() => {
  * @property autodelete, Tells whether to delete the toast automatically after a period of time.
  * @property animation, tells whether to animate the appearance and disappearance of a toast or not.
  * @property delay, how long before a toast gets automatically deleted.
+ * @property className Additional class name for your personal styles
+ * 
  * @see https://www.247-dev.com/projects/dom-master/plugins/toast
  */
 
 const toast = (message, props) => {
     let running = true;
-    let { position, title: tt, link, autohide: ah, animation: an, delay: dl, type } = _object(props);
+    let { position, title: tt, link, autohide: ah, animation: an, delay: dl, type, className } = _object(props);
     position = (typeof position === 'string' && ['tl', 'tc', 'tr', 'ml', 'mc', 'mr', 'bl', 'bc', 'br'].includes(position)) ? position : 'br';
     link = typeof link === 'string' ? { url: link, name: link } : (typeof link === 'object' && typeof link.url === 'string' ? link : undefined);
     let toastContainer = runningToastsContainers[position];
@@ -75,13 +79,14 @@ const toast = (message, props) => {
         toastContainer.appendTo(document.body);
         runningToastsContainers[position] = toastContainer;
     }
-    const toast = __('toast dom-master-plugin').attr({ role: "alert", "aria-live": "assertive", "aria-atomic": "true" });
+    const toast = __(`toast ${className || ''} dom-master-plugin`).attr({ role: "alert", "aria-live": "assertive", "aria-atomic": "true" });
 
     const toastHeader = __(`toast-header${type === 'error' ? ' toast-danger' : ''}`);
     const icon = type === 'error' ? warningIcon() : notificationIcon();
     const title = __('me-auto ms-1', 'strong').text(tt || (type === 'error' ? 'Error' : 'Notification'));
     const toastTime = __('text-muted toast-time').addChild('now').attr({ 'toast-time': Date.now() });
-    const closeBtn = __('btn-close').attr({ "data-bs-dismiss": "toast", "aria-label": "Close" });
+    const closeBtn = __('btn-close shadow-none', 'button').attr({ "data-bs-dismiss": "toast", "aria-label": "Close" });
+    closeBtn.addChild(close().attr({width:'20', height: '20'}));
 
     const toastBody = __(['toast-body mini-scrollbar', oa]).style({ maxHeight: '300px' }).addChild(message);
     let actionBtn;
@@ -121,7 +126,11 @@ const toast = (message, props) => {
              * Shows the Toast
              */
 
-            show(){bs.show()},
+            show(){
+                bs.show();
+                states.zIindex += 4;
+                toastContainer.style({ zIndex: states.zIindex });
+            },
 
             /**
              * Attach eventListeners to Toast
@@ -147,7 +156,8 @@ const toast = (message, props) => {
     actionBtn && actionBtn.on('click', function(e) {
         bs.hide();
     });
-    Object.values(runningToastsContainers).length > 1 && updateTime();
+
+    updateTime();
 
     return {
 
@@ -177,6 +187,8 @@ const toast = (message, props) => {
         show(){
             if(!running) return;
             bs.show();
+            states.zIindex += 4;
+            toastContainer.style({ zIndex: states.zIindex });
         },
 
         /**

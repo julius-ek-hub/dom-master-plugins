@@ -7,8 +7,7 @@ import $, {
     _array} from "../lib.js";
 
 import { __, sleep, states } from "../utils.js";
-
-
+import { close } from "../icons.js";
 
 /**
  * Create dynamic Bootstrap 5 modal
@@ -16,6 +15,7 @@ import { __, sleep, states } from "../utils.js";
  * @param {{
  *  header: *,
  *  footer: *,
+ *  className: String,
  *  background: String,
  *  backdrop: Boolean | 'static',
  *  focus: Boolean,
@@ -30,6 +30,7 @@ import { __, sleep, states } from "../utils.js";
 const modal = (content, props) => {
     let {
         header: title,
+        className,
         footer,
         background,
         backdrop,
@@ -55,7 +56,7 @@ const modal = (content, props) => {
         type: 'button',
         'data-bs-dismiss': 'modal',
         'arial-label': 'Close'
-    });
+    }).addChild(close().attr({width:'25', height: '25'}));
     header.addChild([h2, h3]);
 
     let body = __('modal-body text-break').addChild(content || '');
@@ -71,7 +72,7 @@ const modal = (content, props) => {
 
     footer && b2.addChild(foot.addChild(footer));
 
-    let modal = __("modal fade dom-master-plugin").addChild(b1.addChild(b2));
+    let modal = __(`modal fade ${className || ''} dom-master-plugin`).addChild(b1.addChild(b2));
     modal.appendTo(parent);
 
     let bs = new Modal(modal.plain(0), {
@@ -79,6 +80,12 @@ const modal = (content, props) => {
         keyboard: _boolean(keyboard),
         focus: _boolean(focus, true)
     });
+
+    const addZindex = () => {
+        states.zIindex += 4;
+        modal.style({ zIndex: states.zIindex });
+        $('body').lastChild().style({zIndex: states.zIindex - 2})
+    }
 
     const on = (event, callback) => {
         const cbs = {
@@ -102,7 +109,10 @@ const modal = (content, props) => {
              * Shows the modal
              */
 
-            show(){bs.show()},
+            show(){
+                bs.show();
+                addZindex();
+            },
 
             /**
              * Attach eventListeners to modal
@@ -151,9 +161,7 @@ const modal = (content, props) => {
 
         show(){
             bs.show();
-            states.zIindex += 4;
-            modal.style({ zIndex: states.zIindex });
-            $('body').lastChild().style({zIndex: states.zIindex - 2})
+            addZindex();
         },
 
         /**

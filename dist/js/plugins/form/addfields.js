@@ -41,7 +41,7 @@ const addFields = function (fields, after){
              ...attr}));
 
         let _description = $('< class="text-secondary"/>').addChild(description);
-        let _error = $('< class="text-danger"/>');
+        let _error = $('< class="text-danger mt-1"/>');
 
         let _container = $(`< class="mt-2" id="field_${id}" field-id = "${id}"/>`);
         if (type === 'checkbox') {

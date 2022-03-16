@@ -1,7 +1,7 @@
 import {_boolean, _bootstrap} from "../lib.js";
 import { sleep } from "../utils.js";
 
-export default (collapse, toggle, item, toggler) => {
+const collapseInstance = (collapse, toggle, item, toggler) => {
     let bsCollapse = new _bootstrap.Collapse(collapse.plain(0), {
         toggle: _boolean(toggle, false)
     });
@@ -99,3 +99,5 @@ export default (collapse, toggle, item, toggler) => {
         }
     }
 }
+
+export default collapseInstance;

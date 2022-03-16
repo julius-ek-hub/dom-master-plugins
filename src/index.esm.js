@@ -1,4 +1,4 @@
- import $ from './lib';
+ import $ from './lib.js';
 
  import modal from './plugins/modal.js';
  import Alert from './plugins/alert.js';

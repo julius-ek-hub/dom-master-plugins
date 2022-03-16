@@ -45,7 +45,7 @@ const defaultMount = async(e, holder, calendar, props, okCallback) => {
 
     calendar.ok(okCallback);
 
-    calendar.mountTo(holder);
+    calendar.render(holder);
     mountAt(holder, e, {
         height: _number(props.height, 500), 
         width: _number(props.width, 300),
