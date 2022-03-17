@@ -1,4 +1,3 @@
-import collapseHandler from "./collapse-handler.js";
 import $, {_bootstrap, _boolean} from '../lib.js';
 import { sleep } from "../utils.js";
 
@@ -19,8 +18,61 @@ const collapsible = (container, toggle) => {
         toggle: _boolean(toggle, false)
     });
 
+    /**
+     * Attach eventListeners to the collapsible element
+     * @param {'show' | 'shown' | 'hide' | 'hidden'} event 
+     * @param {Function} callback 
+     */
+
+     const on = (event, callback) => {
+        const cbs = {
+            hide: 'hide.bs.collapse',
+            hidden: 'hidden.bs.collapse',
+            show: 'show.bs.collapse',
+            shown: 'shown.bs.collapse'
+        }
+        body.on(cbs[event], callback);
+        return {
+            on,
+            hide: () => bsCollapse.hide(),
+            show: () => bsCollapse.show(),
+        };
+    }
+
     return {
-        ...collapseHandler(bsCollapse, body),
+        /**
+         * Attach eventListeners to the collapsible element
+         * @param {'show' | 'shown' | 'hide' | 'hidden'} event 
+         * @param {Function} callback 
+         */
+
+         on(event, callback){
+            return on(event, callback);
+        },
+
+        /**
+         * Hides the collapsible element
+         */
+
+        hide(){ 
+            return bsCollapse.hide();
+        },
+
+        /**
+         * Shows the collapsible element
+         */
+
+        show(){
+            return bsCollapse.show();
+        },
+
+        /**
+         * Toggles the element's visibility
+         */
+
+        toggle(){
+            return bsCollapse.toggle();
+        },
 
         /**
          * The element itself as a DOM master object

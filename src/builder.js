@@ -1,1 +1,1 @@
-module.exports = require('./index.esm').default;
+module.exports = require('./index').default;

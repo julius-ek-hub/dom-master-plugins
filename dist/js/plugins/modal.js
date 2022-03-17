@@ -6,7 +6,7 @@ import {
     Modal,
     _array} from "../lib.js";
 
-import { __ } from "../utils.js";
+import { __, sleep } from "../utils.js";
 import offCanvasOrModalHandler from "./offcan-modal.js";
 import { close } from "../icons.js";
 
@@ -45,6 +45,7 @@ const modal = (content, props) => {
     parent = isElement(parent)? parent : document.body;
     bl = _string(bl, false);
     is = _boolean(is, true);
+    let running = true;
 
     backdrop = backdrop === 'static' ? 'static' : _boolean(backdrop);
     let scroll = is ? ' modal-dialog-scrollable' : '';
@@ -76,17 +77,107 @@ const modal = (content, props) => {
     let modal = __(`modal fade ${className || ''} dom-master-plugin`).addChild(b1.addChild(b2));
     modal.appendTo(parent);
 
+    keyboard = _boolean(keyboard);
+
     let bs = new Modal(modal.plain(0), {
         backdrop,
-        keyboard: _boolean(keyboard),
+        keyboard,
         focus: _boolean(focus, true)
     });
 
+    const handler = offCanvasOrModalHandler(bs, modal, keyboard);
+
+    const on = (event, callback) => {
+        const cbs = {
+            hide: 'hide.bs.modal',
+            hidden: 'hidden.bs.modal',
+            show: 'show.bs.modal',
+            shown: 'shown.bs.modal',
+            hidePrevented: 'hidePrevented.bs.modal'
+        }
+        modal.on(cbs[event], callback);
+
+        return {
+            
+            /**
+             * Hides the modal
+             */
+
+            hide(){bs.hide()},
+            
+            /**
+             * Shows the modal
+             */
+
+            show(){
+                bs.show();
+                handler.addZindex();
+            },
+
+            /**
+             * Attach eventListeners to modal
+             * @param {'show' | 'shown' | 'hide' | 'hidden'} event 
+             * @param {Function} callback 
+             */
+
+            on(event, callback){return on(event, callback)}
+        }
+    }
+
+    const drop = async() => {
+        if(!running) return;
+        await sleep(500);
+        bs.hide();
+        modal.drop();
+        running = false;
+    }
+
     return {
-        ...offCanvasOrModalHandler(bs, modal, 'modal', keyboard),
+        /**
+        * Attach eventListeners to modal
+        * @param {'show' | 'shown' | 'hide' | 'hidden'} event 
+        * @param {Function} callback 
+         */
+
+         on(event, callback){
+            return on(event, callback);
+        },
 
         /**
-         * Shakes/vibrate the plugin
+         * Hides the modal
+         */  
+
+        hide(){
+            bs.hide();
+        },
+
+        /**
+         * Shows the modal
+         */
+
+        show(){
+            bs.show();
+            handler.addZindex();
+        },
+
+        /**
+         * Toggles the modal's visibility
+         */
+
+        toggle(){
+            bs.toggle();
+        },
+
+        /**
+         * Removes modal from the DOM
+         */
+
+        drop(){
+            drop();
+        },
+
+        /**
+         * Shakes/vibrate the modal
          */
 
         shake(){
@@ -94,7 +185,7 @@ const modal = (content, props) => {
         },
 
         /**
-         * The Bootstrap 5 instance of the plugin
+         * The Bootstrap 5 instance of the modal
          */
 
         i: bs
