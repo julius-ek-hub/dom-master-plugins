@@ -5,15 +5,23 @@ import modal from "../modal.js";
 
 export const loader = function(){
     let action = hide => this.loading.children().get().forEach(c => c.hide(hide));
+    const _filter = filter => this.form.style({filter})
     return {
-        show: () => action(false),
-        hide: () => action(),
+        show: () => {
+            action(false);
+            _filter('blur(2px)');
+        },
+        hide: () => {
+            action();
+            _filter('');
+        },
         message: message =>{
              this.loading.firstChild().truncate().text(message)
              return loader.call(this);
         }
     }
 }
+
 export function exists(id) { return this.form.query(`#${id}`).get().plain().length > 0};
 
 export function reset(){

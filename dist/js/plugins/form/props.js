@@ -9,7 +9,7 @@ const props = function(info){
     let attr = info.attributes;
     if(attr)
       form.attr(attr);
-    this.loading = $('< class = "d-flex position-sticky top-0 align-items-center text-secondary loader"/>').addChild([
+    this.loading = $('< class = "d-flex position-sticky p-2 top-0 align-items-center text-secondary loader"/>').addChild([
         $('<strong hidden>Please wait...</strong>'),
         $('< hidden class = "spinner-border spinner-sm ms-auto"/>')
     ]);

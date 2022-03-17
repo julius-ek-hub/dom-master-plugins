@@ -1,4 +1,4 @@
-import $, {
+import {
     _boolean, 
     _object, 
     _string, 
@@ -6,7 +6,8 @@ import $, {
     _bootstrap,
     _array} from "../lib.js";
 
-import { __, sleep, states } from "../utils.js";
+import { __ } from "../utils.js";
+import offCanvasOrModalHandler from "./offcan-modal.js";
 import { close } from "../icons.js";
 
 /**
@@ -44,7 +45,7 @@ const modal = (content, props) => {
     parent = isElement(parent)? parent : document.body;
     bl = _string(bl, false);
     is = _boolean(is, true);
-    let running = true;
+    
     backdrop = backdrop === 'static' ? 'static' : _boolean(backdrop);
     let scroll = is ? ' modal-dialog-scrollable' : '';
     let b1 = __(`modal-dialog modal-dialog-centered${scroll} p-0`);
@@ -81,97 +82,11 @@ const modal = (content, props) => {
         focus: _boolean(focus, true)
     });
 
-    const addZindex = () => {
-        states.zIindex += 4;
-        modal.style({ zIndex: states.zIindex });
-        $('body').lastChild().style({zIndex: states.zIindex - 2})
-    }
-
-    const on = (event, callback) => {
-        const cbs = {
-            hide: 'hide.bs.modal',
-            hidden: 'hidden.bs.modal',
-            show: 'show.bs.modal',
-            shown: 'shown.bs.modal',
-            hidePrevented: 'hidePrevented.bs.modal'
-        }
-        modal.on(cbs[event], callback);
-        return {
-            
-            /**
-             * Hides the modal
-             */
-
-            hide(){bs.hide()},
-
-            
-            /**
-             * Shows the modal
-             */
-
-            show(){
-                bs.show();
-                addZindex();
-            },
-
-            /**
-             * Attach eventListeners to modal
-             * @param {'show' | 'shown' | 'hide' | 'hidden'} event 
-             * @param {Function} callback 
-             */
-
-            on(event, callback){return on(event, callback)}
-        }
-    };
-
-    const handleListener = e => {
-        if (!bs._element)
-            return $(window)._on('keyup', handleListener);
-        ['escape', 'enter'].includes(e.code.toLowerCase()) && bs.hide();
-    }
-
-    if(_boolean(keyboard) && backdrop !== 'static')
-         $(window).on('keyup', handleListener);
-
-    const drop = async() => {
-        if(!running) return;
-        await sleep(500);
-        bs.hide();
-        modal.drop();
-        running = false;
-    };
-
     return {
-        /**
-         * Attach eventListeners to modal
-         * @param {'show' | 'shown' | 'hide' | 'hidden'} event 
-         * @param {Function} callback 
-         */
-        on(event, callback){return on(event, callback)},
+        ...offCanvasOrModalHandler(bs, modal, 'modal', keyboard),
 
         /**
-         * Hides the modal
-         */
-
-        hide(){bs.hide()},
-
-        /**
-         * Shows the modal
-         */
-
-        show(){
-            bs.show();
-            addZindex();
-        },
-
-        /**
-         * Toggles the modal's visibility
-         */
-
-        toggle(){bs.toggle()},
-
-        /**
-         * Shakes/vibrate the modal
+         * Shakes/vibrate the plugin
          */
 
         shake(){
@@ -179,15 +94,7 @@ const modal = (content, props) => {
         },
 
         /**
-         * Removes modal from the DOM
-         */
-
-        drop(){
-            return drop();
-        },
-
-        /**
-         * The Bootstrap 5 modal instance
+         * The Bootstrap 5 instance of the plugin
          */
 
         i: bs

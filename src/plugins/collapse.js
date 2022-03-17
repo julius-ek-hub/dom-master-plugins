@@ -1,4 +1,4 @@
-import collapseInstance from "./collapse-i.js";
+import collapseInstance from "./collapse-instance.js";
 import $ from '../lib.js'
 
 /**
@@ -13,8 +13,7 @@ import $ from '../lib.js'
 
 const collapsible = (container, toggle) => {
     const collapse = $(container).addClass('collapse');
-    const instance = collapseInstance(collapse, toggle, collapse, false);
-    return instance;
+    return {...collapseInstance(collapse, toggle, collapse, false)};
 }
 
 export default collapsible; 

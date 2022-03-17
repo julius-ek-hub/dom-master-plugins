@@ -1,4 +1,4 @@
-import collapseInstance from "./collapse-i.js";
+import collapseInstance from "./collapse-instance.js";
 
 import { __,  bs } from "../utils.js";
 
@@ -36,7 +36,7 @@ const accordion = (content, props) => {
         collapse
     ]);
 
-    return collapseInstance(collapse, toggle, item, toggler);
+    return {...collapseInstance(collapse, toggle, item, toggler)};
 }
 
 export default accordion;

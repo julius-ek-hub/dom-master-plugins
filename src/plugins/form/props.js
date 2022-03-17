@@ -9,14 +9,15 @@ const props = function(info){
     let attr = info.attributes;
     if(attr)
       form.attr(attr);
-    this.loading = $('< class = "d-flex position-sticky top-0 align-items-center text-secondary loader"/>').addChild([
+    this.loading = $('< class = "d-flex position-sticky p-2 top-0 align-items-center text-secondary loader"/>').addChild([
         $('<strong hidden>Please wait...</strong>'),
         $('< hidden class = "spinner-border spinner-sm ms-auto"/>')
     ]);
     this.fields = [];
     let sb = info.submitButton;
     let cb = info.cancelButton;
-    this.container = $(`< class = "dom-master-plugin form ${info.className || ''}"/>`).addChild([this.loading, $('< class="mb-1"/>').addChild(info.description || ''), form]);
+    this.container = $(`< class = "dom-master-plugin form ${info.className || ''}"/>`)
+    .addChild([this.loading, $('< class="mb-1"/>').addChild(info.description || ''), form]);
     this.submitButton = (isElement(sb) ? $(sb): $(`<button class = "btn btn-primary submit-btn"/>`).text(typeof sb === 'string' ? sb : 'Submit')).click(submit.bind(this));
     this.cancelButton = (isElement(cb) ? $(cb): $(`<button class = "btn btn-light cancel-btn"/>`).text(typeof cb === 'string' ? cb : 'Cancel')).click(() => this.modal && this.modal.hide());
     this.form = form;
