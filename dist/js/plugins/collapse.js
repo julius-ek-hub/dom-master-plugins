@@ -1,5 +1,6 @@
-import collapseInstance from "./collapse-instance.js";
-import $ from '../lib.js'
+import collapseHandler from "./collapse-handler.js";
+import $, { Collapse, _boolean} from '../lib.js';
+import { sleep } from "../utils.js";
 
 /**
  * ----------------------------------------------------------------
@@ -12,8 +13,46 @@ import $ from '../lib.js'
  */
 
 const collapsible = (container, toggle) => {
-    const collapse = $(container).addClass('collapse');
-    return {...collapseInstance(collapse, toggle, collapse, false)};
+    const body = $(container).addClass('collapse');
+
+    let bsCollapse = new Collapse(body.plain(0), {
+        toggle: _boolean(toggle, false)
+    });
+
+    return {
+        ...collapseHandler(bsCollapse, body),
+
+        /**
+         * The element itself as a DOM master object
+         */
+
+        body,
+
+        /**
+         * Appends the collapsible element to anothe element
+         * @param {HTMLElement | String} element Can be an HTMLElement or a selector string
+         */
+
+         appendTo(element){
+            body.appendTo(element)
+        },
+
+        /**
+         * The Bootstrap 5 collapse instance
+         */
+
+         i: bsCollapse,
+
+        /**
+         * Remove the collapsible element from the DOM
+         */
+        
+        async drop(){
+            await sleep(500);
+            bsCollapse.hide();
+            body.drop();
+        }
+    };
 }
 
 export default collapsible;

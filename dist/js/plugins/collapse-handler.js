@@ -1,14 +1,6 @@
-import {_boolean, Collapse} from "../lib.js";
-import { sleep } from "../utils.js";
+import {_boolean} from "../lib.js";
 
-const collapseInstance = (collapse, toggle, item, toggler) => {
-    let bsCollapse = new Collapse(collapse.plain(0), {
-        toggle: _boolean(toggle, false)
-    });
-    toggler && toggler.on('click', function() {
-        if (bsCollapse._element)
-            bsCollapse.toggle();
-    });
+const collapseHandler = (bsCollapse,  collapsibleElement) => {
 
     /**
      * Attach eventListeners to the collapsible element
@@ -23,7 +15,7 @@ const collapseInstance = (collapse, toggle, item, toggler) => {
             show: 'show.bs.collapse',
             shown: 'shown.bs.collapse'
         }
-        collapse.on(cbs[event], callback);
+        collapsibleElement.on(cbs[event], callback);
         return {
             on,
             hide: () => bsCollapse.hide(),
@@ -32,12 +24,6 @@ const collapseInstance = (collapse, toggle, item, toggler) => {
     }
 
     return {
-
-        /**
-         * The Bootstrap 5 collapse instance
-         */
-
-        i: bsCollapse,
 
         /**
          * Attach eventListeners to the collapsible element
@@ -73,31 +59,7 @@ const collapseInstance = (collapse, toggle, item, toggler) => {
             return bsCollapse.toggle();
         },
 
-        /**
-         * The element itself as a DOM master object
-         */
-
-        body: item,
-
-        /**
-         * Appends the element to anothe element
-         * @param {HTMLElement | String} element Can be an HTMLElement or a selector string
-         */
-
-        appendTo(element){
-            item.appendTo(element)
-        },
-
-        /**
-         * Remove the element from the DOM
-         */
-
-        async drop(){
-            await sleep(500);
-            bsCollapse.hide();
-            item.drop();
-        }
     }
 }
 
-export default collapseInstance;
+export default collapseHandler;
