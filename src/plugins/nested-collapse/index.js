@@ -44,7 +44,7 @@ const nestedCollapse = (items, props) => {
         container.addClass('nested-collapse dom-master-plugin').addChild(addItem.call(defaultProps, item))
     });
 
-    active && activateCollapse.call(defaultProps, active)
+    active && activateCollapse.call(defaultProps, active);
 
     return {
         /**

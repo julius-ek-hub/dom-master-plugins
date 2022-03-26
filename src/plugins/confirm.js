@@ -47,6 +47,7 @@ const Confirm = (message, props) => {
     let mod = modal(message, {
         header,
         innerScroll: false,
+        keyboard: false,
         footer: buttons,
         borderLine: 'none',
         backdrop: 'static',

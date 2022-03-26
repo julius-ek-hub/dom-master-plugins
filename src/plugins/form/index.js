@@ -7,7 +7,7 @@ import { appendTo, close, exists, inModal, loader, onOk, reset, submit } from ".
  * ----------------------------------------------------------------
  * Dynamically generate Bootstrap 5 Form from one to infinite number
  * of fields. Lunch the Form on a modal or append it to a particular 
- * element.
+ * element in the DOM.
  * ----------------------------------------------------------------
  * 
  * @param {{
@@ -32,7 +32,7 @@ let allProps = Props.call({}, props);
         /**
         * 
         * @param {[{ 
-        * type: 'button' | 'checkbox' | 'textarea' | 'list' | 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'radio' | 'range' | 'reset' | 'search' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week',
+        * type: 'calendar' | 'button' | 'checkbox' | 'textarea' | 'list' | 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'radio' | 'range' | 'reset' | 'search' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week',
         * id: Number | String,
         * placeholder,
         * default,

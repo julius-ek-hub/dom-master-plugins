@@ -48,6 +48,7 @@ const Confirm = (message, props) => {
         header,
         innerScroll: false,
         footer: buttons,
+        keyboard: false,
         borderLine: 'none',
         backdrop: 'static',
         className: `${className || ''} confirm`

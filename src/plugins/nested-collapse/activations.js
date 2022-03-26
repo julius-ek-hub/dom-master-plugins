@@ -12,8 +12,8 @@ export const activateClass = function(_a){
 
 export default async function(id){
     await sleep(100);
-    let target = $(`div#${this.instanceID}.nested-collapse #${id}`);
-    if (!target) return;
+    let target = $(`div#${this.instanceID} .nested-collapse #${this.instanceID + id}`);
+    if (!target.exists()) return; 
     let parent = target.parent();
     const _click = () => {
         let prev = parent.siblings().get(-1);

@@ -92,13 +92,11 @@ input:is([type=calendar]):not(.no-icon) {
   color: #198754;
 }
 
-.dom-master-plugin .spinner-border {
-  height: 1.5em;
-  width: 1.5em;
-}
-
-.dom-master-plugin .loader {
-  background: white;
+.dom-master-plugin .cover > div:first-child {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 50%;
+  text-align: center;
 }
 
 .dom-master-plugin.calendar {

@@ -4,23 +4,24 @@ import { handleErrors } from "./validate.js";
 import modal from "../modal.js";
 
 export const loader = function(){
-    let action = hide => this.loading.children().get().forEach(c => c.hide(hide));
-    const _filter = filter => this.form.style({filter})
+    let action = (value, includeSending = true) => {
+        [includeSending && this.loading || $(), this.cover].map(e => e.hide(value));
+        [this.cancelButton, this.submitButton].map(btn => btn.disable(!value))
+        this.disabled = !value;
+    };
     return {
-        show: () => {
-            action(false);
-            _filter('blur(2px)');
+        show: (includeSending = true) => {
+            action(false, includeSending);
         },
         hide: () => {
-            action();
-            _filter('');
+            action(true);
         },
-        message: message =>{
-             this.loading.firstChild().truncate().text(message)
-             return loader.call(this);
+        message: (m) => {
+           this.cover.firstChild().lastChild().refill(m);
+            return loader.call(this);
         }
     }
-}
+} 
 
 export function exists(id) { return this.form.query(`#${id}`).get().plain().length > 0};
 
@@ -30,7 +31,7 @@ export function reset(){
     form.query('.valid, invalid').get().removeClass('valid invalid');
 }
 export function close(){
-    if(this.modal && this.launched)
+    if(this.modal && this.launched && !this.disabled && !this.validating)
        this.modal.hide();
 }
 
@@ -53,7 +54,6 @@ export async function submit(){
         modal && modal.shake();
         return;
     }
-    modal && modal.hide();
     if(form.hasAttribute('action'))
        form.submit();
     else 
@@ -77,6 +77,7 @@ export function inModal(){
             header: tt,
             footer: buttons,
             keyboard: false,
+            closeButton: false
         });
     this.modal = md;
 
@@ -85,8 +86,6 @@ export function inModal(){
             this.launched = false;
         });
         md.show();
-
-        cancelButton.on('click', md.hide);
 
     $(window).on('keyup', e => {
         let tg = $(e.target);

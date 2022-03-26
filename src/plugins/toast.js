@@ -108,8 +108,8 @@ const toast = (message, props) => {
     const on = (event, callback) => {
         if(!running) return;
         const cbs = {
-            hide: 'hide.bs.toast',
-            hidden: 'hidden.bs.toast',
+            drop: 'hide.bs.toast', 
+            dropped: 'hidden.bs.toast',
             show: 'show.bs.toast',
             shown: 'shown.bs.toast'
         }
@@ -120,7 +120,7 @@ const toast = (message, props) => {
              * Hides the Toast
              */
 
-            hide(){bs.hide()},
+            drop(){bs.hide()},
 
             /**
              * Shows the Toast
@@ -134,7 +134,7 @@ const toast = (message, props) => {
 
             /**
              * Attach eventListeners to Toast
-             * @param {'show' | 'shown' | 'hide' | 'hidden'} event 
+             * @param {'show' | 'shown' | 'drop' | 'dropped'} event 
              * @param {Function} callback 
              */
 
@@ -163,7 +163,7 @@ const toast = (message, props) => {
 
         /**
          * Attach eventListeners to Toast
-         * @param {'show' | 'shown' | 'hide' | 'hidden'} event 
+         * @param {'show' | 'shown' | 'drop' | 'dropped'} event 
          * @param {Function} callback 
          */
 
@@ -175,7 +175,7 @@ const toast = (message, props) => {
          * Hides the Toast
          */
 
-        hide(){
+        drop(){
             if(!running) return;
             bs.hide();
         },

@@ -47,6 +47,7 @@ const Prompt = (message, props) => {
     let mod = modal(body, {
         innerScroll: false,
         footer: [cancel, done],
+        keyboard: false,
         className: `${className || ''} prompt`
     });
 

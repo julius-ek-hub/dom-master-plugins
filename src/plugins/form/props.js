@@ -7,19 +7,27 @@ const props = function(info){
     info = _object(info);
     let form = $('<form/>');
     let attr = info.attributes;
+    this.disabled = false;
     if(attr)
       form.attr(attr);
-    this.loading = $('< class = "d-flex position-sticky p-2 top-0 align-items-center text-secondary loader"/>').addChild([
-        $('<strong hidden>Please wait...</strong>'),
-        $('< hidden class = "spinner-border spinner-sm ms-auto"/>')
-    ]);
+    this.cover = $(`
+        <div class="hidden position-absolute top-0 bottom-0 start-0 end-0 cover" hidden>
+            <div>
+                <span class = "spinner-grow spinner-grow-lg"></span>
+                <div class = "text-muted fw-bold">Please wait....</div>
+            </div>
+        </div>
+        `);
+    this.loading = $('<span class = "spinner-border spinner-border-sm  ms-1" hidden/>');
     this.fields = [];
     let sb = info.submitButton;
     let cb = info.cancelButton;
-    this.container = $(`< class = "dom-master-plugin form ${info.className || ''}"/>`)
-    .addChild([this.loading, $('< class="mb-1"/>').addChild(info.description || ''), form]);
+    this.container = $(`< class = "dom-master-plugin position-relative form ${info.className || ''}"/>`)
+    .addChild([this.cover, $('< class="mb-1"/>').addChild(info.description || ''), form]);
     this.submitButton = (isElement(sb) ? $(sb): $(`<button class = "btn btn-primary submit-btn"/>`).text(typeof sb === 'string' ? sb : 'Submit')).click(submit.bind(this));
-    this.cancelButton = (isElement(cb) ? $(cb): $(`<button class = "btn btn-light cancel-btn"/>`).text(typeof cb === 'string' ? cb : 'Cancel')).click(() => this.modal && this.modal.hide());
+    this.cancelButton = (isElement(cb) ? $(cb): $(`<button class = "btn btn-light cancel-btn"/>`).text(typeof cb === 'string' ? cb : 'Cancel'));
+    this.cancelButton.click(() => (this.modal && !this.validating && !this.disabled) && this.modal.hide());
+    this.loading.appendTo(this.submitButton);
     this.form = form;
     this.info = info;
 

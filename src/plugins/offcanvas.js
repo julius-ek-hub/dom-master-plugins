@@ -29,7 +29,7 @@ import { close } from "../icons.js";
     let { header, position, backdrop, keyboard, scroll, parent, background, border } = _object(props);
     const pos = { top: 'top', right: 'end', bottom: 'bottom', left: 'start' }
     const oCanvas = __(`offcanvas dom-master-plugin offcanvas-${pos[position] || 'start'}`);
-    let _header = '';
+    let _header; 
     let running = true;
     if (header) {
         _header = __('offcanvas-header');
@@ -44,7 +44,7 @@ import { close } from "../icons.js";
 
     if (background) {
         body.style({ background: '' });
-        _header.style({ background: '' });
+        _header?.style({ background: '' });
         oCanvas.style({ background });
     }
     if (border)

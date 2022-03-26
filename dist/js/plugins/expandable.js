@@ -14,7 +14,7 @@ const expandable = (element) => {
         let clone = $(element).clone().removeClass('w-50').addClass('w-100')
         let box = $('</>').addClass([df, w, h, jcc, aic]);
         box.addChild(clone);
-        let m = modal(box, { background: 'transparent', innerScroll: false });
+        let m = modal(box, {  background: 'transparent', innerScroll: false, header: '</>', borderLine: 'none'});
         m.on('hidden', m.drop);
         m.show();
 

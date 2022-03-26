@@ -20,6 +20,7 @@ import { close } from "../icons.js";
  *  background: String,
  *  backdrop: Boolean | 'static',
  *  focus: Boolean,
+ *  closeButton: Boolean,
  *  keyboard: Boolean,
  *  parent: Element,
  *  borderLine: String,
@@ -33,6 +34,7 @@ const modal = (content, props) => {
         header: title,
         className,
         footer,
+        closeButton: cb,
         background,
         backdrop,
         focus,
@@ -44,7 +46,8 @@ const modal = (content, props) => {
     
     parent = isElement(parent)? parent : document.body;
     bl = _string(bl, false);
-    is = _boolean(is, true);
+    is = _boolean(is);
+    cb = _boolean(cb);
     let running = true;
 
     backdrop = backdrop === 'static' ? 'static' : _boolean(backdrop);
@@ -59,7 +62,7 @@ const modal = (content, props) => {
         'data-bs-dismiss': 'modal',
         'arial-label': 'Close'
     }).addChild(close().attr({width:'25', height: '25'}));
-    header.addChild([h2, h3]);
+    header.addChild([h2, cb && h3 || '']);
 
     let body = __('modal-body text-break').addChild(content || '');
     let foot = __('modal-footer');

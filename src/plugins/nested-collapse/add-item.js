@@ -51,7 +51,7 @@ const addItem = function(item, line) {
                 }
             btn.children().get(line && grid === 'both' ? 1 : 0).style(style);
         }
-        const btn = col_btn([line && grid === 'both' ? left_line() : '', Chevron(), item.label], id).on('click', async() => {
+        const btn = col_btn([line && grid === 'both' ? left_line() : '', Chevron(), item.label], id).click(async() => {
             open = !open;
             toggle(btn, true);
             await sleep(360)

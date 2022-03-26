@@ -97,8 +97,8 @@ export default function (selector, props, callback){
     if(targets.plain().length > 0 && targets.plain().every(isElement))
         targets.addClass('has-calendar').forEach(target => {
             target.on('keydown paste', e => e.preventDefault());
-            
-            target.value(props.format || 'MM/DD/YYYY').on('click contextmenu', e => {
+            target.attr({placeholder: props.format || 'MM/DD/YYYY'});
+            target.on('click contextmenu', e => {
                 target.blur();
                 e.preventDefault();
                 handler.call(this, e, target, props, callback)
