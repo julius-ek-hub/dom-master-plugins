@@ -1,15 +1,15 @@
 {
   "name": "dom-master-plugins",
   "version": "1.1.0",
-  "description": "",
+  "description": "Set of plugins built with Bootstrap 5 on top of DOM Master to help improve it's functionalities",
   "main": "dist/js/index",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
     "build-css": "webpack --config webpack.config.css.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["DOM Master", "Bootstrap", "DOM", "HTML", "DOM Master plugins"],
+  "author": "Julius Ek (https://247-dev.com)",
   "license": "ISC",
   "dependencies": {
     "dom-master": "^1.0.12"

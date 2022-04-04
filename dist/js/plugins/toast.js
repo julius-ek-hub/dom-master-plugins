@@ -50,7 +50,7 @@ let updateTime = async() => {
  * position: 'tl' | 'tc' | 'tr' | 'ml' | 'mc' | 'mr' | 'bl' | 'bc' | 'br', 
  * title: String, 
  * link: {url: String, name: String} | String, 
- * autohide: Boolean, 
+ * autodrop: Boolean, 
  * animation: Boolean, 
  * delay: Number,
  * type: 'error' | 'normal',
@@ -70,7 +70,7 @@ let updateTime = async() => {
 
 const toast = (message, props) => {
     let running = true;
-    let { position, title: tt, link, autohide: ah, animation: an, delay: dl, type, className } = _object(props);
+    let { position, title: tt, link, autodrop: od, animation: an, delay: dl, type, className } = _object(props);
     position = (typeof position === 'string' && ['tl', 'tc', 'tr', 'ml', 'mc', 'mr', 'bl', 'bc', 'br'].includes(position)) ? position : 'br';
     link = typeof link === 'string' ? { url: link, name: link } : (typeof link === 'object' && typeof link.url === 'string' ? link : undefined);
     let toastContainer = runningToastsContainers[position];
@@ -100,7 +100,7 @@ const toast = (message, props) => {
     toastContainer.addChild(toast);
 
     let bs = Toast.getOrCreateInstance(toast.plain(0), {
-        autohide: _boolean(ah, true),
+        autohide: _boolean(od, true),
         animation: _boolean(an, true),
         delay: _number(dl, 5000)
     });
