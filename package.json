@@ -8,11 +8,17 @@
     "build": "webpack",
     "build-css": "webpack --config webpack.config.css.js"
   },
-  "keywords": ["DOM Master", "Bootstrap", "DOM", "HTML", "DOM Master plugins"],
+  "keywords": [
+    "DOM Master",
+    "Bootstrap",
+    "DOM",
+    "HTML",
+    "DOM Master plugins"
+  ],
   "author": "Julius Ek (https://247-dev.com)",
   "license": "ISC",
   "dependencies": {
-    "dom-master": "^1.0.12"
+    "dom-master": "^1.0.13"
   },
   "devDependencies": {
     "webpack": "^5.69.1",
