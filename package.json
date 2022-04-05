@@ -1,6 +1,6 @@
 {
   "name": "dom-master-plugins",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Set of plugins built with Bootstrap 5 on top of DOM Master to help improve it's functionalities",
   "main": "dist/js/index",
   "scripts": {
