@@ -13,7 +13,7 @@
  import movable from './plugins/movable.js';
  import nestedCollapse from './plugins/nested-collapse/index.js';
  import offCanvas from './plugins/offcanvas.js';
- import partition from './plugins/partition.js';
+ import tab from './plugins/tab.js';
  import toast from './plugins/toast.js';
  import _window from './plugins/window.js';
  import Calendar from './plugins/calendar/index.js';
@@ -35,7 +35,7 @@ export {
     movable,
     nestedCollapse,
     offCanvas,
-    partition,
+    tab,
     toast,
     _window,
     Calendar,

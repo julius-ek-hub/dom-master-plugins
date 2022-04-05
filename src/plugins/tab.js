@@ -6,7 +6,7 @@ import { __, bs} from "../utils.js";
 
 /**
  * ----------------------------------------------------------------
- * Generates a partition of elements such that only one element can 
+ * Generates a tab of elements such that only one element can 
  * be visible at a time. Check example in docs to understand
  * ----------------------------------------------------------------
  * @param {[{
@@ -29,10 +29,10 @@ import { __, bs} from "../utils.js";
  * breakFoot: Boolean,
  * touch: Boolean
  * }} props
- * @see https://www.247-dev.com/projects/dom-master/plugins/partition
+ * @see https://www.247-dev.com/projects/dom-master/plugins/tab
  */
 
-const partition = (slides, props) => {
+const tab = (slides, props) => {
     let {
     footer,
     alignHeader: ah,
@@ -106,4 +106,4 @@ const partition = (slides, props) => {
     };
 }
 
-export default partition;
+export default tab;
